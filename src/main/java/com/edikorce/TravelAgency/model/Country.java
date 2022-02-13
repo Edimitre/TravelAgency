@@ -18,7 +18,7 @@ public class Country {
     Long id;
     String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "continent_membership")
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "continent_membership", referencedColumnName ="id")
     Continent continent;
 }

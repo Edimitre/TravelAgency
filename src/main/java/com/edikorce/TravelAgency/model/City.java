@@ -14,10 +14,12 @@ import javax.persistence.*;
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     String name;
 
-    @OneToOne
-    @JoinColumn(name = "nationality")
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "nationality", referencedColumnName = "id")
     Country country;
 
 }

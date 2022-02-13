@@ -18,6 +18,8 @@ public class Continent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
+
     String name;
 
 }
