@@ -21,10 +21,14 @@ public class User {
 
     String name ;
 
-    Role role;
+    String password;
+
+    Boolean anonymous;
+
+    Boolean admin;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "packet",referencedColumnName = "id")
+    @JoinColumn(name = "user_list",referencedColumnName = "id")
     List<Packet> packetsList = new ArrayList<>();
 
 }

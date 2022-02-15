@@ -5,19 +5,21 @@ import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.User;
 import com.edikorce.TravelAgency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/save")
-    public User saveUser(@RequestBody User user){
 
-        return userService.saveUser(user);
-    }
+
+
+
+
 
     @GetMapping("/get/{id}")
     public User getUserById(@PathVariable Long id) throws ContentNotFoundExeption {

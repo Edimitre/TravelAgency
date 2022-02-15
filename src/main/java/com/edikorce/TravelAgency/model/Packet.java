@@ -24,10 +24,10 @@ public class Packet {
     @JoinColumn(name = "city_id")
     City city;
 
-    int maxNrOfPeople;
+    int maxNrOfUsers;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "users",referencedColumnName = "id")
+    @JoinColumn(name = "packet_list", referencedColumnName = "id")
     List<User> userList = new ArrayList<>();
 
 }
