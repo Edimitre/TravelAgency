@@ -2,7 +2,9 @@ package com.edikorce.TravelAgency.controller;
 
 
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
+import com.edikorce.TravelAgency.model.Continent;
 import com.edikorce.TravelAgency.model.Country;
+import com.edikorce.TravelAgency.service.ContinentService;
 import com.edikorce.TravelAgency.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +15,19 @@ import org.springframework.web.bind.annotation.*;
 public class CountryController {
     @Autowired
     private CountryService countryService;
+    @Autowired
+    private ContinentService continentService;
 
-    @PostMapping("/save")
-    public Country saveCountry(@RequestBody Country country){
+    @RequestMapping("/save")
+    public String saveCountry(@RequestParam(value = "countryName") String countryName, @RequestParam(value = "continentName") String continentName){
 
-        return countryService.saveCountry(country);
+        Continent continent = continentService.getContinentByName(continentName);
+
+        Country country = new Country();
+        country.setName(countryName);
+        country.setContinent(continent);
+        countryService.saveCountry(country);
+        return "redirect:/admin/home";
     }
 
     @GetMapping("/get/{id}")

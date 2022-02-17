@@ -3,6 +3,7 @@ package com.edikorce.TravelAgency.service;
 
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.City;
+import com.edikorce.TravelAgency.model.Continent;
 import com.edikorce.TravelAgency.model.Country;
 import com.edikorce.TravelAgency.repository.CityRepository;
 import com.edikorce.TravelAgency.repository.CountryRepository;
@@ -27,12 +28,18 @@ public class CityService {
         return allCitiesList;
     }
 
+    public City getCityByName(String cityName){
+
+        return cityRepository.getCityByName(cityName);
+    }
+
     public List<City> saveAllCities(List<City> cityList){
 
         return cityRepository.saveAll(cityList);
     }
 
     public City getCityById(Long id) throws ContentNotFoundExeption {
+
         Optional<City> city = cityRepository.findById(id);
 
             if (city.isPresent()){

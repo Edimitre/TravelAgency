@@ -1,24 +1,25 @@
 package com.edikorce.TravelAgency.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     String name;
 
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "nationality", referencedColumnName = "id")
     Country country;
 

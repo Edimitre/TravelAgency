@@ -59,4 +59,9 @@ public class UserService {
        userRepository.deleteById(id);
     }
 
+    public User getEmptyUser(){
+
+        return new User(0L, "","" ,true,false,new ArrayList<>());
+    }
+
 }

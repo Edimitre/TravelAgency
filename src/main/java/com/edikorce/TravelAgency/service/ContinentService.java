@@ -19,6 +19,11 @@ public class ContinentService {
         return continentRepository.save(continent);
     }
 
+    public Continent getContinentByName(String continentName){
+
+        return continentRepository.getContinentByName(continentName);
+    }
+
     public List<Continent> getAllContinents(){
 
         List<Continent> allContinentsList = continentRepository.findAll();

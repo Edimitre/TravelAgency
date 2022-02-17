@@ -41,6 +41,16 @@ public class CountryService {
             }
     }
 
+    public Country getCountryByName(String name) throws ContentNotFoundExeption {
+        Optional<Country> country = countryRepository.getCountryByName(name);
+
+        if (country.isPresent()){
+            return country.get();
+        }else{
+            throw new ContentNotFoundExeption("Shteti nuk u gjet");
+        }
+    }
+
     public void deleteCountryById(Long id){
 
        countryRepository.deleteById(id);

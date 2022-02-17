@@ -20,8 +20,10 @@ public class Packet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToOne
-    @JoinColumn(name = "city_id")
+    int nrOfDays;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
     City city;
 
     int maxNrOfUsers;
