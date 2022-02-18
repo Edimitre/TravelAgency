@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="css/index.css" th:href="@{css/index.css}" rel='stylesheet' />
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Shto Pakete</title>
+</head>
+
+
+
+<body th:style="'background: url(/images/admin_background.jpg) no-repeat center center fixed;background-size: cover;'">
+
+    <div class="container">
+        <div class="row align-items-center vh-100">
+            <div class="col-8 mx-auto">
+                <div class="card shadow border">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h1 class="text-center">Shto Pakete</h1>
+                        <form th:action="@{/packet/save}" th:object="${packet}" method="post">
+
+                            <!--NAME INPUT-->
+                            <div class="form-group">
+                                <label  for="nrOfDays">Nr i diteve</label>
+                                <input type="number" class="form-control" id="nrOfDays" th:field="*{nrOfDays}" required>
+                            </div>
+                            <!--City INPUT-->
+                            <div class="form-group">
+                                <label for="cityselect" >Qyteti</label>
+                                <select id="cityselect" th:field="*{city}" class="form-control" required>
+                                    <th:block th:each="cit : ${allCityList}">
+                                        <option th:text="${cit.name}" th:value="${cit.id}"></option>
+                                    </th:block>
+                                </select>
+                            </div>
+
+                                <!--MAX NR OF USERS INPUT-->
+                            <div class="form-group">
+                                <label for="nrOfuser">Nr maks i user</label>
+                                <input type="number" id="nrOfuser" th:field="*{maxNrOfUsers}" class="form-control" required>
+                            </div>
+
+                            <!--MAX NR OF TIMES BOOKED INPUT-->
+                            <div class="form-group">
+                                <label for="nrOfTimesBooked">Prenotuar</label>
+                                <input type="number" id="nrOfTimesBooked" th:field="*{nrOfTimesBooked}" class="form-control" required>
+                            </div>
+
+                            <!--IS OFFER INPUT-->
+                            <div class="col-sm-8">
+                                <input type="checkbox" name="btn_isOffer" th:field="*{isOffer}" th:value="1" class="custom-control-input" id="materialChecked">
+                                <label class="custom-control-label" for="materialChecked">Eshte Oferte</label>
+                            </div>
+
+                            <!--IS VALID INPUT-->
+                            <div class="col-sm-8">
+                                <input type="checkbox" name="btn_isValid" th:field="*{isValid}" th:value="1" class="custom-control-input" id="materialCecked">
+                                <label class="custom-control-label" for="materialCecked">E Vlefshme</label>
+                            </div>
+
+                            <!--BUTONI RUAJ-->
+                            <div class="text-center p-3">
+                                <button type="submit" class="btn btn-primary"> Ruaj Paketen</button>
+                                <a href="/admin/home" class="btn btn-secondary"> Mbyll</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

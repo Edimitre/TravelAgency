@@ -8,7 +8,10 @@ import com.edikorce.TravelAgency.service.ContinentService;
 import com.edikorce.TravelAgency.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/country")
@@ -19,15 +22,31 @@ public class CountryController {
     private ContinentService continentService;
 
     @RequestMapping("/save")
-    public String saveCountry(@RequestParam(value = "countryName") String countryName, @RequestParam(value = "continentName") String continentName){
+    public String saveCountry(Country country){
 
-        Continent continent = continentService.getContinentByName(continentName);
 
-        Country country = new Country();
-        country.setName(countryName);
-        country.setContinent(continent);
         countryService.saveCountry(country);
         return "redirect:/admin/home";
+    }
+
+    @GetMapping("/add/form")
+    public String showCountryAddForm(Model model){
+
+        List<Continent> allContinents= continentService.getAllContinents();
+
+
+        model.addAttribute("country", new Country());
+
+        model.addAttribute("allContinents", allContinents);
+        return "add_country_form";
+    }
+
+    @GetMapping("/all")
+    public String showAllCountries(Model model){
+        model.addAttribute("country", new Country());
+        List<Country> countryList = countryService.getAllCountries();
+        model.addAttribute("countryList", countryList);
+        return "all_countries";
     }
 
     @GetMapping("/get/{id}")
@@ -37,7 +56,7 @@ public class CountryController {
         return countryService.getCountryById(id);
     }
 
-    @PostMapping("/update/{id}")
+    @RequestMapping("/edit/{id}")
     public Country updateCountry(@PathVariable Long id) throws ContentNotFoundExeption {
         Country country = countryService.getCountryById(id);
 
@@ -49,4 +68,5 @@ public class CountryController {
 
         countryService.deleteCountryById(id);
     }
+
 }

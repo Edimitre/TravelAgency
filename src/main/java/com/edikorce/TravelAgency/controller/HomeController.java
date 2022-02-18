@@ -47,7 +47,7 @@ public class HomeController {
     public String saveUser(User user1){
 
         user1.setAnonymous(false);
-        user1.setAdmin(true);
+
         user = userService.saveUser(user1);
         return "redirect:/";
     }
@@ -78,9 +78,6 @@ public class HomeController {
 
         return "redirect:/";
     }
-
-    // todo vazhdo me funksionet e editimit te userit
-
 
 
 }

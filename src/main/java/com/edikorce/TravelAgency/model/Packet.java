@@ -18,18 +18,24 @@ public class Packet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    int nrOfDays;
+    private Integer nrOfDays;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id", referencedColumnName = "id")
-    City city;
+    private City city;
 
-    int maxNrOfUsers;
+    private Integer maxNrOfUsers;
+
+    private Integer nrOfTimesBooked;
+
+    private Boolean isOffer;
+
+    private Boolean isValid;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "packet_list", referencedColumnName = "id")
-    List<User> userList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
 
 }

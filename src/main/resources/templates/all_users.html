@@ -8,32 +8,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <title>Gjithe Qytetet</title>
 </head>
-<body th:style="'background: url(/images/paris.jpg) no-repeat center center fixed;background-size: cover;'">
+<body th:style="'background: url(/images/clients.jpg) no-repeat center center fixed;background-size: cover;'">
 <div class="container text-center">
 
     <div>
         <h1>Qytetet</h1>
     </div>
-    <table class="table table-bordered " style="background-color: white">
+    <table class="table table-bordered" style="background-color: white">
         <thead class="thead-dark">
         <tr>
 
-            <th>Emri Qytetit</th>
-            <th>Shteti Perkates</th>
+            <th>Emri Klientit</th>
+            <th>Admin</th>
+            <th>Paketat E Blera</th>
             <th>Opsionet</th>
 
         </tr>
         </thead>
 
         <tbody>
-        <th:block th:each="city : ${cityList}">
+        <th:block th:each="user : ${userList}">
             <tr>
-                <td th:text="${city.name}"></td>
-                <td th:text="${city.country.name}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.admin}"></td>
+                <td >
+                    <tr th:each="packet: ${user.packetsList}">
+                        <td th:text="${packet.name}">id</td>
+                    </tr>
                 <td>
-                    <a class="h4 mr-3" th:href="@{'/city/edit/' + ${city.id}}">Edito Qytetin</a>
+                    <a class="h4 mr-3" th:href="@{'/admin/user/edit/' + ${user.id}}">Edito Userin</a>
                 </td>
-            </tr>
         </th:block>
         </tbody>
     </table>

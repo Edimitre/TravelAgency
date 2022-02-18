@@ -12,26 +12,26 @@
 <div class="container text-center">
 
     <div>
-        <h1>Qytetet</h1>
+        <h1>Shtetet</h1>
     </div>
     <table class="table table-bordered " style="background-color: white">
         <thead class="thead-dark">
         <tr>
 
-            <th>Emri Qytetit</th>
-            <th>Shteti Perkates</th>
+            <th>Emri Shtetit</th>
+            <th>Kontinenti Perkates</th>
             <th>Opsionet</th>
 
         </tr>
         </thead>
 
         <tbody>
-        <th:block th:each="city : ${cityList}">
+        <th:block th:each="country : ${countryList}">
             <tr>
-                <td th:text="${city.name}"></td>
-                <td th:text="${city.country.name}"></td>
+                <td th:text="${country.name}"></td>
+                <td th:text="${country.continent.name}"></td>
                 <td>
-                    <a class="h4 mr-3" th:href="@{'/city/edit/' + ${city.id}}">Edito Qytetin</a>
+                    <a class="h4 mr-3" th:href="@{'/country/edit/' + ${country.id}}">Edito Shtetin</a>
                 </td>
             </tr>
         </th:block>
