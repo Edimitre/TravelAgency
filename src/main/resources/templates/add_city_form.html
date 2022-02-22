@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -19,94 +20,94 @@
 <body th:style="'background: url(/images/paris.jpg) no-repeat center center fixed;background-size: cover;'">
 
 
-    <div class="container">
-        <div class="row align-items-center vh-100">
-            <div class="col-8 mx-auto">
-                <div class="card shadow border">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <h1 class="text-center">[[${pageTitle}]]</h1>
+<div class="container">
+    <div class="row align-items-center vh-100">
+        <div class="col-8 mx-auto">
+            <div class="card shadow border">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <h1 class="text-center">[[${pageTitle}]]</h1>
 
-                        <form th:action="@{/city/save}" th:object="${city}" method="post">
+                    <form th:action="@{/admin/city/save}" th:object="${city}" method="post">
 
-                            <input type="hidden" th:field="*{id}">
-                            <!--VENDOS EMRIN E QYTETIT-->
-                            <div class="form-group row">
-                                <label class="col-form-label col-sm-4 font-weight-bold display-3">Emri Qytetit :</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:field="*{name}" class="form-control" required>
-                                </div>
+                        <input type="hidden" th:field="*{id}">
+                        <!--VENDOS EMRIN E QYTETIT-->
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4 font-weight-bold display-3">Emri Qytetit :</label>
+                            <div class="col-sm-8">
+                                <input type="text" th:field="*{name}" class="form-control" required>
                             </div>
+                        </div>
 
-                            <!--VENDOS SHTETIN-->
-                            <div class="form-group row">
-                                <label class="col-form-label col-sm-4 font-weight-bold display-3"> Zgjidh Shtetin Perkates:</label>
-                                <div class="col-sm-8">
-                                    <select th:field="*{country}" class="form-control" required>
-                                        <th:block th:each="coun : ${countryList}">
-                                            <option th:text="${coun.name}" th:value="${coun.id}"></option>
-                                        </th:block>
-                                    </select>
-
-                                    <div class="text-center m-3">Neqoftese Shteti Nuk Gjendet Ju Lutem Shtojeni
-                                        <a href="/country/add/form">Ketu</a>
-                                    </div>
-                                    <div class="text-center p-3">
-                                        <button type="submit" class="btn btn-primary"> Ruaj Qytetin</button>
-                                        <a th:href="@{/admin/home}" class="btn btn-secondary"> Mbyll</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--  DIALOGU MODAL edito qyetetin-->
-    <div class="modal" id="myAddCountryModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Ju Lutem Vendosni Shtetin Edhe Kontinentin Perkates</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form  th:action="@{/country/save}" th:object="${country}" style="max-width: 600px; margin: 0 auto;" id="modal-add-country">
-                        <div class="m-3">
-                            <div class="form-group row">
-                                <label class="col-form-label col-sm-4"> Emri i Shtetit :</label>
-                                <div class="col-sm-8">
-                                    <input type="text" th:field="*{name}" class="form-control" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-form-label col-sm-8"> Zgjidh Kontinentin Perkates :</label>
-                                <select th:field="${continent}" id="continents">
-                                    <th:block th:each="cont : ${continentList}">
-                                        <option th:text="${cont.name}" th:value="${cont.id}"/>
+                        <!--VENDOS SHTETIN-->
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4 font-weight-bold display-3"> Zgjidh Shtetin Perkates:</label>
+                            <div class="col-sm-8">
+                                <select th:field="*{country}" class="form-control" required>
+                                    <th:block th:each="coun : ${countryList}">
+                                        <option th:text="${coun.name}" th:value="${coun.id}"></option>
                                     </th:block>
                                 </select>
+
+                                <div class="text-center m-3">Neqoftese Shteti Nuk Gjendet Ju Lutem Shtojeni
+                                    <a href="/admin/country/register">Ketu</a>
+                                </div>
+                                <div class="text-center p-3">
+                                    <button type="submit" class="btn btn-primary"> Ruaj Qytetin</button>
+                                    <a th:href="@{/admin/home}" class="btn btn-secondary"> Mbyll</a>
+                                </div>
                             </div>
                         </div>
                     </form>
                 </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <div class="text-center p-3">
-                        <button type="submit" class="btn btn-primary" form="modal-add-country"> Ruaj</button>
-                    </div>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Mbyll</button>
-                </div>
-
             </div>
         </div>
     </div>
+</div>
+
+<!--  DIALOGU MODAL edito qyetetin-->
+<div class="modal" id="myAddCountryModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Ju Lutem Vendosni Shtetin Edhe Kontinentin Perkates</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form  th:action="@{/country/save}" th:object="${country}" style="max-width: 600px; margin: 0 auto;" id="modal-add-country">
+                    <div class="m-3">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4"> Emri i Shtetit :</label>
+                            <div class="col-sm-8">
+                                <input type="text" th:field="*{name}" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-8"> Zgjidh Kontinentin Perkates :</label>
+                            <select th:field="${continent}" id="continents">
+                                <th:block th:each="cont : ${continentList}">
+                                    <option th:text="${cont.name}" th:value="${cont.id}"/>
+                                </th:block>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <div class="text-center p-3">
+                    <button type="submit" class="btn btn-primary" form="modal-add-country"> Ruaj</button>
+                </div>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Mbyll</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
-</html>
+</html>ml>

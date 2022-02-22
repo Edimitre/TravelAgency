@@ -18,64 +18,64 @@
 
 <body th:style="'background: url(/images/admin_background.jpg) no-repeat center center fixed;background-size: cover;'">
 
-    <div class="container">
-        <div class="row align-items-center vh-100">
-            <div class="col-8 mx-auto">
-                <div class="card shadow border">
-                    <div class="card-body d-flex flex-column align-items-center">
-                        <h1 class="text-center">Shto Pakete</h1>
-                        <form th:action="@{/packet/save}" th:object="${packet}" method="post">
+<div class="container">
+    <div class="row align-items-center vh-100">
+        <div class="col-8 mx-auto">
+            <div class="card shadow border">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <h1 class="text-center">[[${message}]]</h1>
+                    <form th:action="@{/admin/packet/save}" th:object="${packet}" method="post">
 
-                            <!--NAME INPUT-->
-                            <div class="form-group">
-                                <label  for="nrOfDays">Nr i diteve</label>
-                                <input type="number" class="form-control" id="nrOfDays" th:field="*{nrOfDays}" required>
-                            </div>
-                            <!--City INPUT-->
-                            <div class="form-group">
-                                <label for="cityselect" >Qyteti</label>
-                                <select id="cityselect" th:field="*{city}" class="form-control" required>
-                                    <th:block th:each="cit : ${allCityList}">
-                                        <option th:text="${cit.name}" th:value="${cit.id}"></option>
-                                    </th:block>
-                                </select>
-                            </div>
+                        <!--NAME INPUT-->
+                        <div class="form-group">
+                            <label  for="nrOfDays">Nr i diteve</label>
+                            <input type="number" class="form-control" id="nrOfDays" th:field="*{nrOfDays}" required>
+                        </div>
+                        <!--City INPUT-->
+                        <div class="form-group">
+                            <label for="cityselect" >Qyteti</label>
+                            <select id="cityselect" th:field="*{city}" class="form-control" required>
+                                <th:block th:each="cit : ${cityList}">
+                                    <option th:text="${cit.name}" th:value="${cit.id}"></option>
+                                </th:block>
+                            </select>
+                        </div>
 
-                                <!--MAX NR OF USERS INPUT-->
-                            <div class="form-group">
-                                <label for="nrOfuser">Nr maks i user</label>
-                                <input type="number" id="nrOfuser" th:field="*{maxNrOfUsers}" class="form-control" required>
-                            </div>
+                        <!--MAX NR OF USERS INPUT-->
+                        <div class="form-group">
+                            <label for="nrOfuser">Nr maks i user</label>
+                            <input type="number" id="nrOfuser" th:field="*{maxNrOfUsers}" class="form-control" required>
+                        </div>
 
-                            <!--MAX NR OF TIMES BOOKED INPUT-->
-                            <div class="form-group">
-                                <label for="nrOfTimesBooked">Prenotuar</label>
-                                <input type="number" id="nrOfTimesBooked" th:field="*{nrOfTimesBooked}" class="form-control" required>
-                            </div>
+                        <!--MAX NR OF TIMES BOOKED INPUT-->
+                        <div class="form-group">
+                            <label for="nrOfTimesBooked">Prenotuar</label>
+                            <input type="number" id="nrOfTimesBooked" th:field="*{nrOfTimesBooked}" class="form-control" required>
+                        </div>
 
-                            <!--IS OFFER INPUT-->
-                            <div class="col-sm-8">
-                                <input type="checkbox" name="btn_isOffer" th:field="*{isOffer}" th:value="1" class="custom-control-input" id="materialChecked">
-                                <label class="custom-control-label" for="materialChecked">Eshte Oferte</label>
-                            </div>
+                        <!--IS OFFER INPUT-->
+                        <div class="col-sm-8">
+                            <input type="checkbox" name="btn_isOffer" th:field="*{isOffer}" th:value="1" class="custom-control-input" id="materialChecked">
+                            <label class="custom-control-label" for="materialChecked">Eshte Oferte</label>
+                        </div>
 
-                            <!--IS VALID INPUT-->
-                            <div class="col-sm-8">
-                                <input type="checkbox" name="btn_isValid" th:field="*{isValid}" th:value="1" class="custom-control-input" id="materialCecked">
-                                <label class="custom-control-label" for="materialCecked">E Vlefshme</label>
-                            </div>
+                        <!--IS VALID INPUT-->
+                        <div class="col-sm-8">
+                            <input type="checkbox" name="btn_isValid" th:field="*{isValid}" th:value="1" class="custom-control-input" id="materialCecked">
+                            <label class="custom-control-label" for="materialCecked">E Vlefshme</label>
+                        </div>
 
-                            <!--BUTONI RUAJ-->
-                            <div class="text-center p-3">
-                                <button type="submit" class="btn btn-primary"> Ruaj Paketen</button>
-                                <a href="/admin/home" class="btn btn-secondary"> Mbyll</a>
-                            </div>
-                        </form>
-                    </div>
+                        <!--BUTONI RUAJ-->
+                        <div class="text-center p-3">
+                            <button type="submit" class="btn btn-primary"> Ruaj Paketen</button>
+                            <a href="/admin/home" class="btn btn-secondary"> Mbyll</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 </body>
 </html>

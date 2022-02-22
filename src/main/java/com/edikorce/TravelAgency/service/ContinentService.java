@@ -1,6 +1,5 @@
 package com.edikorce.TravelAgency.service;
 
-
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.Continent;
 import com.edikorce.TravelAgency.repository.ContinentRepository;
@@ -38,16 +37,16 @@ public class ContinentService {
     public Continent getContinentById(Long id) throws ContentNotFoundExeption {
         Optional<Continent> continent = continentRepository.findById(id);
 
-            if (continent.isPresent()){
-                return continent.get();
-            }else{
-                throw new ContentNotFoundExeption("Kontinenti nuku gjet");
-            }
+        if (continent.isPresent()){
+            return continent.get();
+        }else{
+            throw new ContentNotFoundExeption("Kontinenti nuku gjet");
+        }
     }
 
     public void deleteContinentById(Long id){
 
-       continentRepository.deleteById(id);
+        continentRepository.deleteById(id);
     }
 
 }

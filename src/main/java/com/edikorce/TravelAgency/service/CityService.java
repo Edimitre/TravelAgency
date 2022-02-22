@@ -1,6 +1,5 @@
 package com.edikorce.TravelAgency.service;
 
-
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.City;
 import com.edikorce.TravelAgency.model.Continent;
@@ -42,16 +41,16 @@ public class CityService {
 
         Optional<City> city = cityRepository.findById(id);
 
-            if (city.isPresent()){
-                return city.get();
-            }else{
-                throw new ContentNotFoundExeption("Qyteti nuk u gjet");
-            }
+        if (city.isPresent()){
+            return city.get();
+        }else{
+            throw new ContentNotFoundExeption("Qyteti nuk u gjet");
+        }
     }
 
     public void deleteCityById(Long id){
 
-       cityRepository.deleteById(id);
+        cityRepository.deleteById(id);
     }
 
 }

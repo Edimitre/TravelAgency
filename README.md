@@ -11,3 +11,5 @@ kur ai te klikoje ta blere paketen ..do ti shfaqet forma e regjistrimit ose e lo
 - pasi ofertat te shfaqen do kete buton qe i reshton ofertat sipas cmimit 
 ascending ose descending dmth nga me i liri ose nga me i shtrenjti 
 - do kete ne navbar nje button ku do te shfaqen te gjitha destinacionet
+- do kete nje administrues i cili do te kete opsionet
+te shtoje paketa , te ditoje user etj

@@ -1,6 +1,5 @@
 package com.edikorce.TravelAgency.service;
 
-
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.Continent;
 import com.edikorce.TravelAgency.model.Country;
@@ -34,11 +33,11 @@ public class CountryService {
     public Country getCountryById(Long id) throws ContentNotFoundExeption {
         Optional<Country> country = countryRepository.findById(id);
 
-            if (country.isPresent()){
-                return country.get();
-            }else{
-                throw new ContentNotFoundExeption("Shteti nuk u gjet");
-            }
+        if (country.isPresent()){
+            return country.get();
+        }else{
+            throw new ContentNotFoundExeption("Shteti nuk u gjet");
+        }
     }
 
     public Country getCountryByName(String name) throws ContentNotFoundExeption {
@@ -53,7 +52,7 @@ public class CountryService {
 
     public void deleteCountryById(Long id){
 
-       countryRepository.deleteById(id);
+        countryRepository.deleteById(id);
     }
 
 }

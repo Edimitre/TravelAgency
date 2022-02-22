@@ -1,7 +1,6 @@
 package com.edikorce.TravelAgency.repository;
 
 import com.edikorce.TravelAgency.model.Continent;
-import com.edikorce.TravelAgency.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

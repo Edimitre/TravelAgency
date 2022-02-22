@@ -40,12 +40,12 @@
                 <td th:text="${packet.isOffer}"></td>
                 <td th:text="${packet.isValid}"></td>
                 <td >
-                    <tr th:each="user: ${packet.userList}">
-                        <td th:text="${user.name}">id</td>
-                    </tr>
-                <td>
-                    <a class="h4 mr-3" th:href="@{'/admin/packet/edit/' + ${packet.id}}">Ndrysho </a>
-                </td>
+            <tr th:each="user: ${packet.userList}">
+                <td th:text="${user.name}">id</td>
+            </tr>
+            <td>
+                <a class="h4 mr-3" th:href="@{'/admin/packet/edit/' + ${packet.id}}">Ndrysho </a>
+            </td>
         </th:block>
         </tbody>
     </table>

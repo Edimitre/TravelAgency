@@ -1,11 +1,13 @@
 package com.edikorce.TravelAgency.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
+
+
 
 @Data
 @AllArgsConstructor
@@ -22,3 +24,4 @@ public class Country {
     @JoinColumn(name = "continent_membership", referencedColumnName ="id")
     Continent continent;
 }
+

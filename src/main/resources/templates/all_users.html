@@ -6,39 +6,44 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Gjithe Qytetet</title>
+    <title>Gjithe Klientat</title>
 </head>
 <body th:style="'background: url(/images/clients.jpg) no-repeat center center fixed;background-size: cover;'">
 <div class="container text-center">
 
     <div>
-        <h1>Qytetet</h1>
+        <h1>Userat</h1>
     </div>
     <table class="table table-bordered" style="background-color: white">
         <thead class="thead-dark">
-        <tr>
+          <tr>
 
-            <th>Emri Klientit</th>
-            <th>Admin</th>
-            <th>Paketat E Blera</th>
-            <th>Opsionet</th>
+              <th scope="col">Emri Klientit</th>
+              <th scope="col">Roli</th>
+              <th scope="col">Paketat E Blera</th>
+              <th scope="col">Opsionet</th>
 
-        </tr>
+          </tr>
         </thead>
 
         <tbody>
-        <th:block th:each="user : ${userList}">
-            <tr>
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.admin}"></td>
-                <td >
-                    <tr th:each="packet: ${user.packetsList}">
-                        <td th:text="${packet.name}">id</td>
-                    </tr>
-                <td>
-                    <a class="h4 mr-3" th:href="@{'/admin/user/edit/' + ${user.id}}">Edito Userin</a>
-                </td>
-        </th:block>
+          <th:block th:each="user : ${userList}">
+              <tr>
+                  <td th:text="${user.name}">
+
+
+                  </td>
+                  <td th:each="role: ${user.roles}">
+                    <td th:text="${role.name}">
+                  </td>
+                  <td th:each="packet: ${user.packetsList}">
+                    <td th:text="${packet.name}">
+                  </td>
+                  <td>
+                      <a class="h4" th:href="@{'/admin/user/edit/' + ${user.id}}">Edito Userin</a>
+                  </td>
+              </tr>
+          </th:block>
         </tbody>
     </table>
 </div>

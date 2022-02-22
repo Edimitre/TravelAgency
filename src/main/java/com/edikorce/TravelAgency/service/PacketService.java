@@ -1,10 +1,7 @@
 package com.edikorce.TravelAgency.service;
 
-
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
-import com.edikorce.TravelAgency.model.City;
 import com.edikorce.TravelAgency.model.Packet;
-import com.edikorce.TravelAgency.repository.CityRepository;
 import com.edikorce.TravelAgency.repository.PacketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,11 +32,11 @@ public class PacketService {
     public Packet getPacketById(Long id) throws ContentNotFoundExeption {
         Optional<Packet> packet = packetRepository.findById(id);
 
-            if (packet.isPresent()){
-                return packet.get();
-            }else{
-                throw new ContentNotFoundExeption("Paketa nuk gjend");
-            }
+        if (packet.isPresent()){
+            return packet.get();
+        }else{
+            throw new ContentNotFoundExeption("Paketa nuk gjend");
+        }
     }
 
     public void deletePacketById(Long id){
