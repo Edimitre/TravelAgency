@@ -1,7 +1,9 @@
 package com.edikorce.TravelAgency.controller;
 
+import com.edikorce.TravelAgency.model.Packet;
 import com.edikorce.TravelAgency.model.Role;
 import com.edikorce.TravelAgency.model.User;
+import com.edikorce.TravelAgency.service.PacketService;
 import com.edikorce.TravelAgency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,9 @@ public class AppController {
 
 	@Autowired
 	private UserService service;
+
+	@Autowired
+	private PacketService packetService;
 	
 	@GetMapping("")
 	public String viewHomePage() {
@@ -64,6 +69,26 @@ public class AppController {
 		service.save(user);
 		
 		return "redirect:/users";
+	}
+
+	@GetMapping("/packets/all")
+	public String showAllPackets(Model model){
+
+		// todo show list of all packages
+
+		List<Packet> packetList = packetService.getAllPackets();
+		model.addAttribute("user", new User());
+		model.addAttribute("packetList", packetList);
+		return "all_packets";
+	}
+
+	@GetMapping("/packets/offer")
+	private String showOfferPackets(Model model){
+
+
+		List<Packet> packetList = packetService.getOfferPackets();
+		model.addAttribute("packetList", packetList);
+		return "all_packets";
 	}
 
 

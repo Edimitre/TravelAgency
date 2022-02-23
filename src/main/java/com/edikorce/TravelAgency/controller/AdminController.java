@@ -45,6 +45,7 @@ public class AdminController {
 
         List<User> userList = userService.listAll();
 
+
         model.addAttribute("userList", userList);
         return "all_users";
     }
@@ -69,6 +70,11 @@ public class AdminController {
         userService.save(user);
         return "redirect:/admin/users/all";
     }
+
+
+
+
+
 
 
     // CITY
@@ -162,7 +168,6 @@ public class AdminController {
     }
 
 
-
     @RequestMapping("/country/edit/{id}")
     public String updateCountry(@PathVariable(value = "id") Long id, Model model) throws ContentNotFoundExeption {
         Country country = countryService.getCountryById(id);
@@ -173,10 +178,17 @@ public class AdminController {
         return "add_country_form";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteCountryById(@PathVariable Long id){
+    @RequestMapping("/country/delete/{id}")
+    public String deleteCountryById(@PathVariable(value = "id") Long id){
         countryService.deleteCountryById(id);
+        return "redirect:/admin/country/all";
     }
+
+
+
+
+
+
 
 
     // PACKET
@@ -213,9 +225,11 @@ public class AdminController {
     public String updatePacket(@PathVariable(value = "id") Long id, Model model) throws ContentNotFoundExeption {
         Packet packet = packetService.getPacketById(id);
 
-        List<City> cityList = cityService.getAllCities();
-        model.addAttribute("cityList", cityList);
+        List<City> allCityList = cityService.getAllCities();
+
         model.addAttribute("packet", packet);
+
+        model.addAttribute("allCityList", allCityList);
         model.addAttribute("message", "Edit Packet");
         return "add_packet_form";
     }

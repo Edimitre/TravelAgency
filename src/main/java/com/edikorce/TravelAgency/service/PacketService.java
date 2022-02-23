@@ -2,6 +2,7 @@ package com.edikorce.TravelAgency.service;
 
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.Packet;
+import com.edikorce.TravelAgency.model.User;
 import com.edikorce.TravelAgency.repository.PacketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,11 @@ public class PacketService {
     public void deletePacketById(Long id){
 
         packetRepository.deleteById(id);
+    }
+
+    public List<Packet> getOfferPackets(){
+
+        return packetRepository.getOfferPackets();
     }
 
 }

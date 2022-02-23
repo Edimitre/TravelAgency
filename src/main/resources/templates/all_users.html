@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -29,18 +29,26 @@
         <tbody>
           <th:block th:each="user : ${userList}">
               <tr>
-                  <td th:text="${user.name}">
+                  <td th:text="${user.name}"></td>
 
+                  <td sec:authorize="hasRole('ROLE_ADMIN')" >
+                      <table>
+                          <tr th:each="role: ${user.roles}">
+                              <td th:text="${role.name}"></td>
 
+                          </tr>
+                      </table>
                   </td>
-                  <td th:each="role: ${user.roles}">
-                    <td th:text="${role.name}">
-                  </td>
-                  <td th:each="packet: ${user.packetsList}">
-                    <td th:text="${packet.name}">
+                  <td sec:authorize="hasRole('ROLE_ADMIN')" >
+                      <table>
+                          <tr th:each="packet: ${user.packetsList}">
+                              <td th:text="${packet.city.name}"></td>
+
+                          </tr>
+                      </table>
                   </td>
                   <td>
-                      <a class="h4" th:href="@{'/admin/user/edit/' + ${user.id}}">Edito Userin</a>
+                      <a class="btn btn-primary" th:href="@{'/admin/user/edit/' + ${user.id}}">Edito Userin</a>
                   </td>
               </tr>
           </th:block>

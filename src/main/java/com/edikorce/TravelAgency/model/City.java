@@ -1,17 +1,19 @@
 package com.edikorce.TravelAgency.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
-public class City {
+public class City implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -22,5 +24,8 @@ public class City {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "nationality", referencedColumnName = "id")
     Country country;
+
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+    private List<Packet> packetList = new ArrayList<>();
 
 }
