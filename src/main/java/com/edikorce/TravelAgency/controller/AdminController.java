@@ -7,7 +7,11 @@ import com.edikorce.TravelAgency.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -97,10 +101,11 @@ public class AdminController {
     }
 
     @PostMapping("/city/save")
-    public String saveCity(City city) throws IOException {
+    public String saveCity(MultipartFile imageFile, City city) throws IOException {
 
 
-        cityService.saveCity(city);
+
+        cityService.saveCity(imageFile, city);
         return "redirect:/admin/home";
     }
 
@@ -108,6 +113,7 @@ public class AdminController {
     @GetMapping("/cities/all")
     public String showAllCities(Model model){
         List<City> cityList = cityService.getAllCities();
+
         model.addAttribute("cityList", cityList);
         return "all_cities";
     }
@@ -130,6 +136,14 @@ public class AdminController {
 
         return "add_city_form";
 
+    }
+
+    @RequestMapping("/city/delete/{id}")
+    public String deleteCity(@PathVariable(value = "id")Long id){
+
+
+        cityService.deleteCityById(id);
+        return "redirect:/admin/cities/all";
     }
 
 

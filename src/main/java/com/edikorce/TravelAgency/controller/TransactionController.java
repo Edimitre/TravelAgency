@@ -3,6 +3,7 @@ package com.edikorce.TravelAgency.controller;
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.Packet;
 import com.edikorce.TravelAgency.model.User;
+import com.edikorce.TravelAgency.service.ImageService;
 import com.edikorce.TravelAgency.service.PacketService;
 import com.edikorce.TravelAgency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class TransactionController {
     private UserService userService;
 
     @Autowired
+    private ImageService imageService;
+
+    @Autowired
     private PacketService packetService;
 
     @RequestMapping("/buy/packet/{id}")
@@ -32,16 +36,16 @@ public class TransactionController {
         // get user
         User loggedUser = userService.getByName(LoggedUserName);
         // getpacket
-
         Packet packet = packetService.getPacketById(id);
 
 
-        // add packet to user // user to packet
+        // add packet to user
         loggedUser.getPacketsList().add(packet);
-        // kompleto pakten
+
         // vendos nr e klieneteve qe kane prenotuar
         int usersInPacket = packet.getUserList().size();
         packet.setNrOfTimesBooked(usersInPacket + 1);
+        // add user to packet
         packet.getUserList().add(loggedUser);
         // save edited user
         userService.save(loggedUser);
@@ -52,4 +56,14 @@ public class TransactionController {
 
 
     }
+
+    @RequestMapping("/image/form")
+    public String showImageForm(){
+
+        return "add_image_form";
+    }
+
+
+
+
 }

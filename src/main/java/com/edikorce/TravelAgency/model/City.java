@@ -21,7 +21,11 @@ public class City implements Serializable {
     String name;
 
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Lob
+    @Column(columnDefinition = "MEDIUMBLOB")
+    String image;
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "nationality", referencedColumnName = "id")
     Country country;
 

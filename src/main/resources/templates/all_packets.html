@@ -22,8 +22,9 @@
 
             <th>Nr I Diteve</th>
             <th>Qyteti</th>
+            <th>Foto</th>
             <th>Maksimumi i Klientave</th>
-            <th>Heret e Prenotuara </th>
+            <th>Nr i Prenotuar </th>
             <th>Eshte Oferte</th>
             <th>Eshte e Vlefshme</th>
             <th sec:authorize="hasRole('ROLE_ADMIN')">Klientat qe kane prenotuar</th>
@@ -38,6 +39,7 @@
                 <tr>
                     <td th:text="${packet.nrOfDays}"></td>
                     <td th:text="${packet.city.name}">
+                    <td><img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" style="width: 100px;height: 100px;"/></td>
                     <td th:text="${packet.maxNrOfUsers}"></td>
                     <td th:text="${packet.nrOfTimesBooked}"></td>
                     <td th:text="${packet.isOffer}"></td>
