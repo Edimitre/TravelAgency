@@ -24,8 +24,13 @@ public class AppController {
 	@Autowired
 	private PacketService packetService;
 	
-	@GetMapping("")
-	public String viewHomePage() {
+	@GetMapping("/")
+	public String viewHomePage(Model model) {
+
+		List<Packet> packetList = packetService.getOfferPackets();
+
+		model.addAttribute("packetList", packetList);
+
 		return "index";
 	}
 	

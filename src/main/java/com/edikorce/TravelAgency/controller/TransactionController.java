@@ -63,7 +63,4 @@ public class TransactionController {
         return "add_image_form";
     }
 
-
-
-
 }

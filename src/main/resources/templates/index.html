@@ -9,15 +9,29 @@
 </head>
 
 
-	<body th:style="'background: url(images/background.jpg) no-repeat center center fixed;background-size: cover;'">
+	<body th:style="'background: url(images/background_1.jpg) no-repeat center center fixed;background-size: cover;'">
 	<!--   NAVBAR -->
 	<nav th:replace="common :: main_navbar"></nav>
 
+<!--	MESSAGE FROM BACKEND-->
 	<div class="h-4 text-center">
 		<h2 th:text="${message}"></h2>
 	</div>
 
-	<!--CAROUSEL-->
+	<!--SEARCH BAR-->
+	<div class="container">
+
+		<div th:replace="common :: search_bar" >
+
+		</div>
+	</div>
+
+
+
+		<div th:replace="common :: carousel">
+
+		</div>
+
 
 
 
