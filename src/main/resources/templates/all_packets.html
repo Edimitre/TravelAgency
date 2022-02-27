@@ -1,79 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
 
+    <link rel="stylesheet"  href="/css/common.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Gjithe Paketat</title>
-</head>
-<body th:style="'background: url(/images/admin_background.jpg) no-repeat center center fixed;background-size: cover;'">
+  </head>
+  <body>
 
-<nav th:replace="common :: main_navbar">
-</nav>
-<div class="container text-center">
-    <div>
-        <h1>Paketat</h1>
-    </div>
-    <table class="table table-bordered" style="background-color: white">
-        <thead class="thead-dark">
-        <tr>
+  <div th:replace="common :: main_navbar"></div>
+  <div th:replace="common :: search_bar"></div>
+  <div th:replace="common :: list_view"></div>
 
-            <th>Nr I Diteve</th>
-            <th>Qyteti</th>
-            <th>Foto</th>
-            <th>Maksimumi i Klientave</th>
-            <th>Nr i Prenotuar </th>
-            <th>Eshte Oferte</th>
-            <th>Eshte e Vlefshme</th>
-            <th sec:authorize="hasRole('ROLE_ADMIN')">Klientat qe kane prenotuar</th>
-            <th>Opsionet</th>
-            <th sec:authorize="hasRole('ROLE_ADMIN')">Admin</th>
 
-        </tr>
-        </thead>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
 
-        <tbody>
-            <th:block th:each="packet : ${packetList}">
-                <tr>
-                    <td th:text="${packet.nrOfDays}"></td>
-                    <td th:text="${packet.city.name}">
-                    <td><img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" style="width: 100px;height: 100px;"/></td>
-                    <td th:text="${packet.maxNrOfUsers}"></td>
-                    <td th:text="${packet.nrOfTimesBooked}"></td>
-                    <td th:text="${packet.isOffer}"></td>
-                    <td th:text="${packet.isValid}"></td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')" >
-                        <table>
-                            <tr th:each="user: ${packet.userList}">
-                                <td th:text="${user.name}">id</td>
-
-                            </tr>
-                        </table>
-                    </td>
-
-                    <td sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="h4 mr-3" th:href="@{'/transaction/buy/packet/' + ${packet.id}}">Prenoto</a>
-                    </td>
-                    <td sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="btn btn-secondary mr-3" th:href="@{'/admin/packet/edit/' + ${packet.id}}">Ndrysho</a>
-                    </td>
-                    <td sec:authorize="hasRole('ROLE_USER')">
-                        <a class="h4 mr-3" th:href="@{'/transaction/buy/packet/' + ${packet.id}}">Prenoto</a>
-                    </td>
-                    <td sec:authorize="hasRole('ROLE_ANONYMOUS')">
-                        <a class="h4 mr-3" th:href="@{#}">SHIKO ME SHUME </a>
-                    </td>
-                </tr>
-
-            </th:block>
-        </tbody>
-    </table>
-</div>
-
-<div class="text-center">
-<!--    <a class="btn btn-secondary" th:href="@{/admin/home}">kthehu ne Fillim</a>-->
-</div>
-</body>
+  </body>
 </html>

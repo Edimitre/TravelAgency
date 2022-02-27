@@ -7,9 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+
 </head>
 <body>
-    <!-- INSIDE ADMIN NAVBAR-->
+
+    <!--ADMIN NAVBAR-->
     <nav th:fragment="inside_admin_navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">Travel<span class="text-primary">Agency</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,10 +40,9 @@
         <!-- PERMBAJTJA E NAVBARIT       -->
         <div class="collapse navbar-collapse">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link active" href="/packets/all">Paketat <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="/packets/offer">Ofertat </a>
-
+                <a class="nav-item nav-link active" th:href="@{/home}">Home <span class="sr-only"></span></a>
+                <a class="nav-item nav-link active" th:href="@{/packet/all}">Paketat <span class="sr-only"></span></a>
+                <a class="nav-item nav-link active" th:href="@{/about}">Reth Nesh </a>
             </div>
         </div>
 
@@ -56,7 +61,7 @@
 
         </div>
 
-        <!-- NE TE KUNDERT -->
+        <!-- NQS USER ESHTE USER I THJESHTE-->
         <div sec:authorize="hasRole('ROLE_USER')">
             <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ml-auto">
@@ -65,10 +70,10 @@
                     </li>
 
                     <li>
-                        <a class="nav-link" th:text="'Pershendetje '+ ${#request.userPrincipal.principal.getName}" th:href="@{#}"></a>
+                        <a class="nav-link" th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Paketat e Mija</a>
+                        <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Dilni</a>
@@ -87,10 +92,10 @@
                     </li>
 
                     <li>
-                        <a class="nav-link" th:text="'Pershendetje '+ ${#request.userPrincipal.principal.getName}" th:href="@{#}"></a>
+                        <a class="nav-link"  th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Paketat e Mija</a>
+                        <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Dilni</a>
@@ -199,20 +204,20 @@
     </nav>
     <!--MAIN SEARCH BAR-->
     <div th:fragment="search_bar" class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" >
             <div class="col-12 col-md-10 col-lg-8">
-                <form class="card card-sm">
+                <form th:action="@{/packet/search}" class="card card-sm">
                     <div class="card-body row no-gutters align-items-center">
                         <div class="col-auto">
                             <i class="fas fa-search h4 text-body"></i>
                         </div>
                         <!--end of col-->
                         <div class="col">
-                            <input id="keyword" class="form-control form-control-lg form-control-borderless" type="search" placeholder="Kerko qytete ose shtete">
+                            <input name="keyword" class="form-control form-control-lg form-control-borderless" type="search" placeholder="Kerko sipas qytetit ose shtetit" required minlength="1">
                         </div>
                         <!--end of col-->
                         <div class="col-auto">
-                            <button class="btn btn-lg btn-primary" type="submit">Kerko</button>
+                            <button  class="btn btn-lg btn-primary" type="submit">Kerko</button>
                         </div>
                         <!--end of col-->
                     </div>
@@ -221,34 +226,26 @@
             <!--end of col-->
         </div>
     </div>
-
-
-
-
-
-    <div th:fragment="carousel" class="mx-auto m-4" style="width: 1000px;">
+    <!--CAROUSEL-->
+    <div th:fragment="carousel" class="mx-auto " style="width: 1200px;" >
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol>
+
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="/images/background.jpg" class="d-block w-100 " alt="...">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <h5 class="text-uppercase">Travel Agency</h5>
+                        <a class="btn btn-primary" th:href="@{#}">Zgjidhni Paketen Tuaj</a>
                     </div>
                 </div>
                 <div th:each="packet : ${packetList}" class="carousel-item">
-                    <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="d-block w-100" alt="...">
+                    <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="d-block w-100" style="width: 1200px;">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5 th:text="${packet.city.name}">Second slide label</h5>
-                        <p th:text="${packet.isOffer}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <h5 th:text="${packet.city.name}"></h5>
+                        <p th:if="${packet.isOffer}" th:text="Oferte"></p>
+                        <p th:unless="${packet.isOffer}" th:text="${packet.nrOfDays} + ' Dite'"></p>
                     </div>
                 </div>
-
             </div>
             <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -261,6 +258,217 @@
         </div>
     </div>
 
+    <!--LIST VIEW-->
+    <div th:fragment="list_view" class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex flex-row justify-content-between align-items-center filters">
+                    <h6 th:text="${#lists.size(packetList) + ' Paketa te shfaqura'}"></h6>
+                    <div class="right-sort">
+                        <div class="sort-by">
+                            <span class="mr-1">Shfaq sipas:</span>
+                            <a th:href="@{/packet/offer}">Ofertave</a>
+                            <i class="fa fa-angle-down ml-1"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div th:each="packet : ${packetList}" class="col-md-4">
+                <div class="p-card bg-white p-2 rounded px-3">
+                    <div class="d-flex align-items-center credits">
+                        <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" height="200px" ><span class="text-black-50 ml-2" th:text="'Prenotuar ' + ${packet.nrOfTimesBooked} + ' here'">prenotuar</span>
+                    </div>
+                    <h5 class="mt-2" th:text="${packet.city.name}">
+
+                    </h5>
+
+                    <span class="badge badge-danger py-1 mb-2" th:if="${packet.isOffer}" th:text="Oferte" ></span>
+                    <span class="badge badge-danger py-1 mb-2" th:unless="${packet.isOffer}" th:text="Pakete" ></span>
+                    <span th:text="${packet.description}" class="d-block mb-5"></span>
+                    <div class="d-flex justify-content-between stats">
+                        <div>
+                            <i class="fa fa-calendar-o"></i>
+                            <span class="ml-2">Numuri i diteve </span>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center">
+                            <div th:each="user: ${packet.userList}" class="profiles">
+                                <p class="text" th:src="${user.name}" >
+                                    <p class="rounded-circle" >
+                                <p class="h1" ></p>
+                            </div><span class="ml-3" th:text="${packet.nrOfDays}"></span>
+
+                        </div>
+                        <div>
+                            <i class="fa fa-calendar-o"></i>
+                            <a  class="btn btn-primary" th:href="@{'/packet/profile/' + ${packet.id}}">Shiko</a>
+                        </div>
+
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
+                            <i class="fa fa-calendar-o"></i>
+                            <a  class="btn btn-danger" th:href="@{'/admin/packet/edit/' + ${packet.id}}">Edito</a>
+                            <a  class="btn btn-danger" th:href="@{'/admin/packet/details/' + ${packet.id}}">Detajet</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-end text-right mt-2">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    <!--marketing body page-->
+    <div th:fragment="page_section_2" class="container marketing">
+
+        <!-- Three columns of text below the carousel -->
+        <div class="row">
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Heading</h2>
+                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+                <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            </div><!-- /.col-lg-4 -->
+        </div><!-- /.row -->
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+    </div>
+    <!--section 1-->
+    <div th:fragment="page-section" class="page-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 py-3">
+                    <div class="subhead">Reth Nesh</div>
+                    <h2 class="title-section">Ne Jemi <span class="fg-primary">Agjensi udhetimesh profesionale</span> me ofertat me te mira ne treg</h2>
+
+                    <p>Klientet Tane gjithimone kane ngelur te kenaqur me udhetimet edhe paketat tona te udhetimit</p>
+
+                    <a href="about.html" class="btn btn-primary mt-4">Reth Nesh</a>
+                </div>
+                <div class="col-lg-6 py-3">
+                    <div class="about-img" >
+                        <img src="/images/background.jpg" alt="" style="width: 400px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--section 2-->
+    <div th:fragment="marketing" class="page-section m-4">
+        <div class="container">
+            <div class="text-center">
+                <div class="subhead">Sherbimet Tona</div>
+                <h2 class="title-section">Udhetime Reth Gjithe Botes</h2>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
+                    <div class="text-center">
+                        <div class="img-fluid mb-4">
+                            <img src="/images/continents.jpg" alt="" width="100px" height="100px">
+                        </div>
+                        <h5>Kontinente</h5>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
+                    <div class="text-center">
+                        <div class="img-fluid mb-4">
+                            <img src="/images/states.jpg" alt="" width="100px" height="100px">
+                        </div>
+                        <h5>Shtete</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
+                    <div class="text-center">
+                        <div class="img-fluid mb-4">
+                            <img src="/images/big_cities.jpg" alt="" width="100px" height="100px">
+                        </div>
+                        <h5>Qytete</h5>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 col-xl-3 py-3 mb-3">
+                    <div class="text-center">
+                        <div class="img-fluid mb-4">
+                            <img src="/images/trips.jpg" alt="" width="100px" height="100px">
+                        </div>
+                        <h5>Udhetime</h5>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .container -->
+    </div>
 
 </body>
 </html>

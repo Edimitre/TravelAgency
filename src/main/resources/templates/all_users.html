@@ -41,7 +41,7 @@
                   </td>
                   <td sec:authorize="hasRole('ROLE_ADMIN')" >
                       <table>
-                          <tr th:each="packet: ${user.packetsList}">
+                          <tr th:each="packet: ${user.packetList}">
                               <td th:text="${packet.city.name}"></td>
 
                           </tr>
@@ -49,6 +49,7 @@
                   </td>
                   <td>
                       <a class="btn btn-primary" th:href="@{'/admin/user/edit/' + ${user.id}}">Edito Userin</a>
+                      <a class="btn btn-danger mr-3" th:href="@{'/admin/user/delete/' + ${user.id}}">Fshij Userin</a>
                   </td>
               </tr>
           </th:block>

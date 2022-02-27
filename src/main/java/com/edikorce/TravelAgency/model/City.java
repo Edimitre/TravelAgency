@@ -20,16 +20,16 @@ public class City implements Serializable {
 
     String name;
 
-
     @Lob
     @Column(columnDefinition = "MEDIUMBLOB")
     String image;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "nationality", referencedColumnName = "id")
     Country country;
 
-    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "city", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private List<Packet> packetList = new ArrayList<>();
+
 
 }

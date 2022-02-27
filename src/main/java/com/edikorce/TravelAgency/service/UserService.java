@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,12 +25,13 @@ public class UserService {
 	@Autowired PasswordEncoder passwordEncoder;
 	
 	public void registerDefaultUser(User user) {
+
 		Role roleUser = roleRepo.findByName("ROLE_ADMIN");
+
 		user.addRole(roleUser);
 
-
-		List<Packet> packetList = new ArrayList<>();
-		user.setPacketsList(packetList);
+		List<Packet> packets = new ArrayList<>();
+		user.setPacketList(packets);
 
 		encodePassword(user);
 
@@ -41,7 +43,9 @@ public class UserService {
 	}
 
 	public User get(Long id) {
-		return userRepo.findById(id).get();
+		Optional<User> user = userRepo.findById(id);
+		return user.orElseGet(User::new);
+
 	}
 	
 	public List<Role> listRoles() {
@@ -49,8 +53,13 @@ public class UserService {
 	}
 	
 	public void save(User user) {
-		encodePassword(user);		
+
 		userRepo.save(user);
+	}
+
+	public void deleteUserById(Long id) {
+		Optional<User> user = userRepo.findById(id);
+		user.ifPresent(value -> userRepo.delete(value));
 	}
 	
 	private void encodePassword(User user) {

@@ -30,14 +30,13 @@ public class Packet implements Serializable {
 
     private Integer nrOfTimesBooked;
 
+    private String description;
+
     private Boolean isOffer;
 
     private Boolean isValid;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_packets",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "packet_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "packetList",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<User> userList = new ArrayList<>();
 
 }

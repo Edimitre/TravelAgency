@@ -4,6 +4,7 @@ import com.edikorce.TravelAgency.model.Packet;
 import com.edikorce.TravelAgency.model.Role;
 import com.edikorce.TravelAgency.model.User;
 import com.edikorce.TravelAgency.repository.PacketRepository;
+import com.edikorce.TravelAgency.repository.RoleRepository;
 import com.edikorce.TravelAgency.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,8 @@ class MyTravelAgencyApplicationTests {
 	@Autowired
 	private PacketRepository packetRepository;
 
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Test
 	public void testCreateUser(){
@@ -37,18 +40,16 @@ class MyTravelAgencyApplicationTests {
 		User user = new User();
 
 		String password = "edi";
-		BCryptPasswordEncoder pswdencoder = new BCryptPasswordEncoder();
-		String encodedpwd = pswdencoder.encode(password);
-
-		user.setPassword(encodedpwd);
+		user.setPassword(password);
 
 		user.setName("edi");
 
 
 
-		Role role = new Role();
-		role.setName("ROLE_ADMIN");
+		Role role = roleRepository.findByName("ROLE_ADMIN");
 
+
+		user.getRoles().add(role);
 
 
 
@@ -57,22 +58,29 @@ class MyTravelAgencyApplicationTests {
 	}
 
 	@Test
-	public void testuserRoleListAndPacketList(){
+	public void testGetUser(){
 
 		User user = service.findById(1l).get();
-
-
-
-
 
 		Assertions.assertThat(user).isInstanceOf(User.class);
 
 	}
 
 	@Test
-	public void testofertPackets(){
+	public void testOfferPackets(){
 
 		List<Packet> packetList = packetRepository.getOfferPackets();
+
+		Assertions.assertThat(packetList.isEmpty()).isFalse();
+
+
+
+	}
+
+	@Test
+	public void testKeywordPackets(){
+
+		List<Packet> packetList = packetRepository.getPacketsByKeyword("paris");
 
 		Assertions.assertThat(packetList.isEmpty()).isFalse();
 

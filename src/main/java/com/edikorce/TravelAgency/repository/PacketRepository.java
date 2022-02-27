@@ -14,6 +14,10 @@ public interface PacketRepository extends JpaRepository<Packet, Long> {
     @Query("SELECT p FROM Packet p where p.isOffer = true")
     List<Packet> getOfferPackets();
 
+    @Query("SELECT p FROM Packet p where p.city.name like %?1%")
+    List<Packet> getPacketsByKeyword(String keyword);
+
+
 //    @Query("SELECT p FROM Packet p WHERE CONCAT(p.name, p.city.name, p.isOffer, p.nrOfTimesBooked) LIKE %?1%")
 //    List<Packet> getFilteredPackets(String keyword);
 }

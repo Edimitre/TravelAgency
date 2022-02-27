@@ -3,10 +3,11 @@ package com.edikorce.TravelAgency.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,8 +23,6 @@ public class Role implements Serializable {
 
     private String name;
 
-    @OneToMany(mappedBy = "roles")
-    @ToString.Exclude
-    private List<User> userList = new ArrayList<>();
+
 
 }

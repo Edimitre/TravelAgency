@@ -68,9 +68,14 @@ public class AdminController {
 
     }
 
-    @RequestMapping("/user/save")
-    public String processRegister(User user) {
+    @RequestMapping("/user/delete/{id}")
+    public String deleteUserById(@PathVariable(value = "id") Long id){
+        userService.deleteUserById(id);
+        return "redirect:/admin/users/all";
+    }
 
+    @RequestMapping("/user/save")
+    public String saveUser(User user) {
         userService.save(user);
         return "redirect:/admin/users/all";
     }
@@ -226,15 +231,6 @@ public class AdminController {
         return "redirect:/admin/home";
     }
 
-    @GetMapping("/packet/all")
-    public String showAllPackets(Model model){
-
-        List<Packet> packetList = packetService.getAllPackets();
-        model.addAttribute("packetList", packetList);
-        return "all_packets";
-
-    }
-
     @RequestMapping("/packet/edit/{id}")
     public String updatePacket(@PathVariable(value = "id") Long id, Model model) throws ContentNotFoundExeption {
         Packet packet = packetService.getPacketById(id);
@@ -247,4 +243,13 @@ public class AdminController {
         model.addAttribute("message", "Edit Packet");
         return "add_packet_form";
     }
+
+    @RequestMapping("/packet/details/{id}")
+    public String getPacketDetails(@PathVariable(value = "id") Long id, Model model) throws ContentNotFoundExeption {
+
+        Packet packet = packetService.getPacketById(id);
+        model.addAttribute("packet", packet);
+        return "packet_details";
+    }
+
 }

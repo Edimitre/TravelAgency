@@ -1,17 +1,20 @@
 package com.edikorce.TravelAgency.controller;
 
+import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.Packet;
 import com.edikorce.TravelAgency.model.Role;
 import com.edikorce.TravelAgency.model.User;
+import com.edikorce.TravelAgency.security.AuthenticationSystem;
 import com.edikorce.TravelAgency.service.PacketService;
 import com.edikorce.TravelAgency.service.UserService;
+import com.sun.xml.bind.v2.runtime.reflect.Lister;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,33 +26,53 @@ public class AppController {
 
 	@Autowired
 	private PacketService packetService;
-	
-	@GetMapping("/")
+
+
+	@ModelAttribute(name = "user")
+	public  User newUser(){
+		return new User();
+	}
+
+
+	@RequestMapping("/login")
+	public String login(){
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		if (authentication == null || authentication instanceof AnonymousAuthenticationToken){
+
+			return "login";
+
+		}
+
+		return "/home";
+
+	}
+
+	@RequestMapping("/logout")
+	public String logOut(Model model){
+
+		model.addAttribute("user", new User());
+		return "login";
+	}
+
+	@RequestMapping("/home")
 	public String viewHomePage(Model model) {
 
-		List<Packet> packetList = packetService.getOfferPackets();
-
+		List<Packet> packetList = packetService.getAllPackets();
 		model.addAttribute("packetList", packetList);
-
 		return "index";
 	}
-	
-	@RequestMapping("/register")
-	public String showRegistrationForm(Model model) {
 
-		model.addAttribute("user", new User());
-		return "signup_form";
-	}
-	
 	@RequestMapping("/process_register")
-	public String processRegister(Model model,User user) {
+	public String processRegister(User user) {
 
-		model.addAttribute("user", new User());
+
 		service.registerDefaultUser(user);
-
-		return "register_success";
+		return "redirect:/login";
 	}
-	
+
+
 	@GetMapping("/users")
 	public String listUsers(Model model) {
 
@@ -72,30 +95,60 @@ public class AppController {
 	@PostMapping("/users/save")
 	public String saveUser(User user) {
 		service.save(user);
-		
 		return "redirect:/users";
 	}
 
-	@GetMapping("/packets/all")
+	@GetMapping("/packet/all")
 	public String showAllPackets(Model model){
 
-		// todo show list of all packages
-
-		List<Packet> packetList = packetService.getAllPackets();
 		model.addAttribute("user", new User());
-		model.addAttribute("packetList", packetList);
+		model.addAttribute("packetList", packetService.getAllPackets());
 		return "all_packets";
 	}
 
-	@GetMapping("/packets/offer")
+	@GetMapping("/packet/offer")
 	private String showOfferPackets(Model model){
 
-
-		List<Packet> packetList = packetService.getOfferPackets();
-		model.addAttribute("packetList", packetList);
+		model.addAttribute("packetList", packetService.getOfferPackets());
 		return "all_packets";
 	}
 
+	@RequestMapping("/packet/profile/{id}")
+	public String packetProfile(@PathVariable(value = "id") Long id, Model model){
+		try {
+			Packet packet = packetService.getPacketById(id);
+			model.addAttribute("packet", packet);
+			return "packet_profile";
+		} catch (ContentNotFoundExeption e) {
+			e.printStackTrace();
+		}
+		return "packet_profile";
+	}
 
+	@GetMapping("/packet/mine")
+	public String myPackets(Model model){
+
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedUserName = authentication.getName();
+
+		User loggedUser = service.getByName(loggedUserName);
+
+		if (loggedUser !=null){
+
+
+			model.addAttribute("packetList", loggedUser.getPacketList());
+		}
+
+		return "all_packets";
+	}
+
+	@RequestMapping("/packet/search")
+	public String showSearchedPackets(@RequestParam(value = "keyword") String keyword, Model model){
+
+		System.out.println(packetService.getPacketsByKeyword(keyword));
+		model.addAttribute("packetList", packetService.getPacketsByKeyword(keyword));
+		return "all_packets";
+	}
 
 }

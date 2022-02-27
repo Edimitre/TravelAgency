@@ -13,8 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Bean
-	public UserDetailsService userDetailsService() {
+	public CustomUserDetailsService userDetailsService() {
 		return new CustomUserDetailsService();
 	}
 	
@@ -40,13 +41,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/users/**").authenticated().anyRequest().permitAll()
+				.antMatchers("/**/*.js", "/**/*.css","/**/*.jpeg","/**/*.jpg").permitAll()
+				.antMatchers("/process_register").permitAll()
+				.antMatchers("/packet/**").permitAll()
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/home").anonymous()
+				.antMatchers("/login*").permitAll()
+				.anyRequest().authenticated()
 				.and()
 				.formLogin()
+				.loginPage("/login")
 				.usernameParameter("name")
-				.defaultSuccessUrl("/")
+				.successForwardUrl("/home")
 				.permitAll()
 				.and()
-				.logout().logoutSuccessUrl("/").permitAll();
+				.logout().logoutSuccessUrl("/home")
+				.invalidateHttpSession(true)
+				.deleteCookies("JSESSIONID")
+				.permitAll()
+				.and()
+				.csrf().disable();
 	}
 }

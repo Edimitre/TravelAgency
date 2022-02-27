@@ -2,7 +2,6 @@ package com.edikorce.TravelAgency.service;
 
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.Packet;
-import com.edikorce.TravelAgency.model.User;
 import com.edikorce.TravelAgency.repository.PacketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +20,12 @@ public class PacketService {
 
     public List<Packet> getAllPackets(){
 
-        List<Packet> allPacketsList = packetRepository.findAll();
-        return allPacketsList;
+        return packetRepository.findAll();
+    }
+
+    public List<Packet> getPacketsByKeyword(String keyword){
+
+        return packetRepository.getPacketsByKeyword(keyword);
     }
 
     public List<Packet> saveAllPackets(List<Packet> packetList){

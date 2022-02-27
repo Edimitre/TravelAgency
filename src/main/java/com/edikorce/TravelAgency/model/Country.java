@@ -25,7 +25,7 @@ public class Country implements Serializable {
     @JoinColumn(name = "continent_membership", referencedColumnName ="id")
     Continent continent;
 
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     private List<City> cityList = new ArrayList<>();
 }
 

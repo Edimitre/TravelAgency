@@ -53,6 +53,11 @@
                             <input type="number" id="nrOfTimesBooked" th:field="*{nrOfTimesBooked}" class="form-control" required>
                         </div>
 
+                        <!--MAX NR OF TIMES BOOKED INPUT-->
+                        <div class="form-group">
+                            <label for="description">Pershkrimi</label>
+                            <input type="text" id="description" th:field="*{description}" class="form-control" required>
+                        </div>
                         <!--IS OFFER INPUT-->
                         <div class="col-sm-8">
                             <input type="checkbox" name="btn_isOffer" th:field="*{isOffer}" th:value="1" class="custom-control-input" id="materialChecked">
