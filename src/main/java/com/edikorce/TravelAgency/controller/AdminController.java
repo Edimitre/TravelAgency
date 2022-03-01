@@ -7,12 +7,10 @@ import com.edikorce.TravelAgency.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,6 +34,7 @@ public class AdminController {
 
 
 
+
     // USERS
 
     @GetMapping("/home")
@@ -48,8 +47,6 @@ public class AdminController {
     public String watchUsers(Model model){
 
         List<User> userList = userService.listAll();
-
-
         model.addAttribute("userList", userList);
         return "all_users";
     }
@@ -245,10 +242,15 @@ public class AdminController {
     }
 
     @RequestMapping("/packet/details/{id}")
+    @Transactional
     public String getPacketDetails(@PathVariable(value = "id") Long id, Model model) throws ContentNotFoundExeption {
 
         Packet packet = packetService.getPacketById(id);
+
+        List<User> userList = packet.getUserList();
         model.addAttribute("packet", packet);
+        model.addAttribute("user", new User());
+        model.addAttribute("userList", userList);
         return "packet_details";
     }
 

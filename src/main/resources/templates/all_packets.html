@@ -10,14 +10,16 @@
   </head>
   <body>
 
+  <!-- TOP NAVBAR-->
   <div th:replace="common :: main_navbar"></div>
+
+  <!--SEARCHBAR-->
   <div th:replace="common :: search_bar"></div>
-  <div th:replace="common :: list_view"></div>
+
+  <!--LISTVIEW-->
+  <div th:replace="listview/list_view :: list_view"></div>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
 
   </body>
 </html>

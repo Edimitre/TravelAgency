@@ -22,7 +22,7 @@ public class Packet implements Serializable {
 
     private Integer nrOfDays;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
 
@@ -36,7 +36,7 @@ public class Packet implements Serializable {
 
     private Boolean isValid;
 
-    @ManyToMany(mappedBy = "packetList",cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "packetList", fetch = FetchType.LAZY)
     private List<User> userList = new ArrayList<>();
 
 }

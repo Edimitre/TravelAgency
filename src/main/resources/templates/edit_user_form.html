@@ -28,7 +28,9 @@
                     <form th:action="@{/admin/user/save}" th:object="${user}" method="post">
                         <!-- HIDDEN VARIABLES-->
                         <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{username}">
                         <input type="hidden" th:field="*{password}">
+                        <input type="hidden" th:field="*{packetList}">
 
                         <!--NAME INPUT-->
                         <div class="form-group row">

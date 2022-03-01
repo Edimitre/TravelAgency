@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--LIST VIEW-->
+<div th:fragment="list_view" class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex flex-row justify-content-between align-items-center filters">
+                <h6 th:text="${#lists.size(packetList) + ' Paketa te shfaqura'}"></h6>
+                <div class="right-sort">
+                    <div class="sort-by">
+                        <span class="mr-1">Shfaq :</span>
+                        <a th:href="@{/packet/offer}">Ofertat</a>
+                        <i class="fa fa-angle-down ml-1"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card-group">
+        <div th:each="packet : ${packetList}" class="card mb-3 w-75 ">
+            <div class="row no-gutters">
+                <div class="card-img-top">
+                    <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${packet.city.name}">Titulli</h5>
+                        <p class="card-text" th:text="${packet.description}">Pershkrimi</p>
+                        <p class="card-text">
+                            <small class="text-muted" th:text="'Ditet e qendrimit : ' + ${packet.nrOfDays}">Ditet</small>
+                        </p>
+                        <div class="bg-light clearfix">
+                            <div class="col-md-12 bg-light float-left">
+                                <a sec:authorize="hasRole('ROLE_USER')" class="btn btn-primary btn-lg" th:href="@{'/packet/profile/' + ${packet.id}}">Shiko Me Shume</a>
+
+                            </div>
+
+                            <div class="col-md-12 bg-light float-left">
+                                <a sec:authorize="hasRole('ROLE_ANONYMOUS')" class="btn btn-primary btn-lg" th:href="@{/login}">Logohu Per Me Shume</a>
+                            </div>
+
+                            <div class="col-md-12 bg-light float-left">
+                                <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-lg" th:href="@{'/packet/profile/' + ${packet.id}}">Shiko Me Shume</a>
+
+                            </div>
+                            <div class="col-md-12 bg-light float-left">
+                                <a sec:authorize="hasRole('ROLE_ADMIN')"  class="btn btn-danger" th:href="@{'/admin/packet/edit/' + ${packet.id}}">Edito</a>
+                            </div>
+                            <div class="col-md-12 bg-light float-left">
+                                <a sec:authorize="hasRole('ROLE_ADMIN')"  class="btn btn-danger" th:href="@{'/admin/packet/details/' + ${packet.id}}">Detajet</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+
+
+<!--<div class="row mt-4">-->
+<!--    <div th:each="packet : ${packetList}" class="col-md-4">-->
+<!--        <div class="p-card bg-white p-2 rounded px-3">-->
+<!--            <div class="d-flex align-items-center credits">-->
+<!--                <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" height="200px"><span-->
+<!--                    class="text-black-50 ml-2"-->
+<!--                    th:text="'Prenotuar ' + ${packet.nrOfTimesBooked} + ' here'">prenotuar</span>-->
+<!--            </div>-->
+<!--            <h5 class="mt-2" th:text="${packet.city.name}">-->
+
+<!--            </h5>-->
+
+<!--            <span class="badge badge-danger py-1 mb-2" th:if="${packet.isOffer}" th:text="Oferte"></span>-->
+<!--            <span class="badge badge-danger py-1 mb-2" th:unless="${packet.isOffer}" th:text="Pakete"></span>-->
+<!--            <span th:text="${packet.description}" class="d-block mb-5"></span>-->
+<!--            <div class="d-flex justify-content-between stats">-->
+<!--                <div>-->
+<!--                    <i class="fa fa-calendar-o"></i>-->
+<!--                    <span class="ml-2">Numuri i diteve </span>-->
+<!--                </div>-->
+
+<!--                <div class="d-flex flex-row align-items-center">-->
+<!--                    <div th:each="user: ${packet.userList}" class="profiles">-->
+<!--                        <p class="text" th:src="${user.name}">-->
+<!--                        <p class="rounded-circle">-->
+<!--                        <p class="h1"></p>-->
+<!--                    </div>-->
+<!--                    <span class="ml-3" th:text="${packet.nrOfDays}"></span>-->
+
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <i class="fa fa-calendar-o"></i>-->
+<!--                    <a class="btn btn-primary" th:href="@{'/packet/profile/' + ${packet.id}}">Shiko</a>-->
+<!--                </div>-->
+
+<!--                <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                    <i class="fa fa-calendar-o"></i>-->
+<!--                    <a class="btn btn-danger" th:href="@{'/admin/packet/edit/' + ${packet.id}}">Edito</a>-->
+<!--                    <a class="btn btn-danger" th:href="@{'/admin/packet/details/' + ${packet.id}}">Detajet</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+<!--<div class="d-flex justify-content-end text-right mt-2">-->
+<!--    <nav>-->
+<!--        <ul class="pagination">-->
+<!--            <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a>-->
+<!--            </li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">4</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">5</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </nav>-->
+<!--</div>-->
+<!--</div>-->
+</body>
+</html>

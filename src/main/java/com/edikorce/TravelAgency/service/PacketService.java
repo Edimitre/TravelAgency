@@ -33,6 +33,7 @@ public class PacketService {
         return packetRepository.saveAll(packetList);
     }
 
+
     public Packet getPacketById(Long id) throws ContentNotFoundExeption {
         Optional<Packet> packet = packetRepository.findById(id);
 
@@ -52,5 +53,7 @@ public class PacketService {
 
         return packetRepository.getOfferPackets();
     }
+
+
 
 }

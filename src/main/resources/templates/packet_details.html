@@ -46,7 +46,7 @@
                     <td th:text="${packet.isValid}"></td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')" >
                         <table>
-                            <tr th:each="user: ${packet.userList}">
+                            <tr th:each="user: ${userList}">
                                 <td th:text="${user.name}">id</td>
                             </tr>
                         </table>

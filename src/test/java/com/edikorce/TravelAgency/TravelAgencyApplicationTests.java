@@ -1,11 +1,7 @@
 package com.edikorce.TravelAgency;
 
-import com.edikorce.TravelAgency.model.Packet;
-import com.edikorce.TravelAgency.model.Role;
-import com.edikorce.TravelAgency.model.User;
-import com.edikorce.TravelAgency.repository.PacketRepository;
-import com.edikorce.TravelAgency.repository.RoleRepository;
-import com.edikorce.TravelAgency.repository.UserRepository;
+import com.edikorce.TravelAgency.model.*;
+import com.edikorce.TravelAgency.repository.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +12,7 @@ import org.springframework.test.annotation.Rollback;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
@@ -26,7 +23,7 @@ import java.util.logging.Logger;
 class MyTravelAgencyApplicationTests {
 
 	@Autowired
-	private UserRepository service;
+	private UserRepository userRepository;
 
 	@Autowired
 	private PacketRepository packetRepository;
@@ -34,16 +31,79 @@ class MyTravelAgencyApplicationTests {
 	@Autowired
 	private RoleRepository roleRepository;
 
+	@Autowired
+	private ContinentRepository continentRepository;
+
+	@Autowired
+	private CountryRepository countryRepository;
+
+	@Autowired
+	private CityRepository cityRepository;
+
+	@Test
+	public void testCreateContinents(){
+
+		Continent antarktida = new Continent();
+		antarktida.setName("ANTARKTIDA");
+
+
+		Assertions.assertThat(continentRepository.save(antarktida)).isInstanceOf(Continent.class);
+
+	}
+
+	@Test
+	public void testCreateRole(){
+
+
+		Role role = new Role();
+		role.setName("ROLE_USER");
+
+
+		Assertions.assertThat(roleRepository.save(role)).isInstanceOf(Role.class);
+
+
+	}
+
+	@Test
+	public void testCreateCity(){
+
+
+		City city = new City();
+		city.setName("korce");
+
+		Country country = countryRepository.getById(1L);
+		city.setCountry(country);
+
+
+
+		Assertions.assertThat(cityRepository.save(city)).isInstanceOf(City.class);
+
+
+	}
+
+	@Test
+	public void deleteCityById(){
+
+		City city = cityRepository.getById(2L);
+
+		cityRepository.delete(city);
+
+		Assertions.assertThat(city).isInstanceOf(City.class);
+	}
+
 	@Test
 	public void testCreateUser(){
 
 		User user = new User();
 
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		String password = "edi";
-		user.setPassword(password);
+		String bcryptedPwd = bCryptPasswordEncoder.encode(password);
+		user.setPassword(bcryptedPwd);
 
-		user.setName("edi");
+		user.setName("Edi");
 
+		user.setUsername("edimitre");
 
 
 		Role role = roleRepository.findByName("ROLE_ADMIN");
@@ -53,16 +113,18 @@ class MyTravelAgencyApplicationTests {
 
 
 
-		Assertions.assertThat(service.save(user)).isInstanceOf(User.class);
+		Assertions.assertThat(userRepository.save(user)).isInstanceOf(User.class);
 
 	}
 
 	@Test
 	public void testGetUser(){
 
-		User user = service.findById(1l).get();
+		Optional<User> user = userRepository.findById(1l);
 
-		Assertions.assertThat(user).isInstanceOf(User.class);
+		if (user.isPresent()){
+			Assertions.assertThat(user).isInstanceOf(User.class);
+		}
 
 	}
 
@@ -84,6 +146,19 @@ class MyTravelAgencyApplicationTests {
 
 		Assertions.assertThat(packetList.isEmpty()).isFalse();
 
+
+
+	}
+
+	@Test
+	public void deleteUserById(){
+
+		Optional<User> user = userRepository.findById(6L);
+
+		if (user.isPresent()){
+			userRepository.delete(user.get());
+		}
+		Assertions.assertThat(user).isNotEmpty();
 
 
 	}

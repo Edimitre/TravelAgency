@@ -7,9 +7,8 @@ paketa ...mbi te cilat do kete nje buton per te pare direkt paketen qe po shfaqe
 kur ai te klikoje ta blere paketen ..do ti shfaqet forma e regjistrimit ose e logimit nqs eshte i regjistruar me pare 
 - do te jete butoni ku ai do te shikoje te gjithe informacionin mbi kompanine e udhetimit ,,kontaktin etj 
 - kur user te zgjedhe paketen do kete buton qe te shikoje me shume specifika mbi paketen e zgjedhur 
-- do kete nje faqe ku do shfaqen hotelet bashke me pershkrimet perkatese 
 - pasi ofertat te shfaqen do kete buton qe i reshton ofertat sipas cmimit 
 ascending ose descending dmth nga me i liri ose nga me i shtrenjti 
-- do kete ne navbar nje button ku do te shfaqen te gjitha destinacionet
+- do kete ne navbar nje button ku do te shfaqen te gjitha destinacionet ose paketat
 - do kete nje administrues i cili do te kete opsionet
-te shtoje paketa , te ditoje user etj
+te shtoje paketa , te editoje user etj

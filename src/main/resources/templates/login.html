@@ -7,7 +7,15 @@
     <meta charset="UTF-8">
   <title>Logoju</title>
 </head>
-<div class="container text-center">
+
+<body>
+
+<!--   NAVBAR -->
+<nav th:replace="common :: main_navbar"></nav>
+<div class="container text-center mt-4">
+
+
+
     <div>
         <h1>Logohu</h1>
     </div>
@@ -34,10 +42,6 @@
                 </div>
             </div>
 
-
-
-
-
             <div class="text-center p-3">
                 <button type="submit" class="btn btn-primary"> LogIn </button>
             </div>
@@ -46,10 +50,10 @@
     </form>
 
 
+    <label class="h2 text-center" th:text="${message}">test</label>
+
 
 </div>
-<div class="text-center">
-    <a th:href="@{/home}">kthehu ne Fillim</a>
-</div>
+
 </body>
 </html>

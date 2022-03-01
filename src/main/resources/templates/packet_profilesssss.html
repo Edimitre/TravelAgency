@@ -17,7 +17,7 @@
         <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="img img-responsive">
         <div class="profile-content">
           <div class="profile-name" th:text="${packet.city.name}">
-            <p th:text="${packet.city.continent.name}">@johndoedesigner</p>
+            <label th:text="${packet.city.continent.name}">@johndoedesigner</label>
           </div>
           <div class="profile-description" th:text="${packet.description}"></div>
           <div class="row">

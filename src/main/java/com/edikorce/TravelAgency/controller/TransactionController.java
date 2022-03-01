@@ -3,7 +3,6 @@ package com.edikorce.TravelAgency.controller;
 import com.edikorce.TravelAgency.exeption.ContentNotFoundExeption;
 import com.edikorce.TravelAgency.model.Packet;
 import com.edikorce.TravelAgency.model.User;
-import com.edikorce.TravelAgency.security.AuthenticationSystem;
 import com.edikorce.TravelAgency.service.ImageService;
 import com.edikorce.TravelAgency.service.PacketService;
 import com.edikorce.TravelAgency.service.UserService;
@@ -15,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 
 @Controller
 @RequestMapping("/transaction")
@@ -31,6 +30,7 @@ public class TransactionController {
     private PacketService packetService;
 
     @RequestMapping("/buy/packet/{id}")
+    @Transactional
     public String addPacketToUser(@PathVariable(value = "id") Long id, Model model) throws ContentNotFoundExeption {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -54,22 +54,11 @@ public class TransactionController {
 
             // save edited user
             userService.save(loggedUser);
-            return "redirect:/packet/all";
+            return "redirect:/packet/mine";
         }
-        // getpacket
-
-
-
         return "redirect:/home";
-
-
-
     }
 
-    @RequestMapping("/image/form")
-    public String showImageForm(){
 
-        return "add_image_form";
-    }
 
 }

@@ -28,8 +28,11 @@ public class User implements Serializable {
 
     private String name ;
 
-    private String password;
+    @Column(unique = true)
+    private String username;
 
+
+    private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -40,7 +43,7 @@ public class User implements Serializable {
     private Set<Role> roles = new HashSet<>();
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_packets",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "packet_id", referencedColumnName = "id"))

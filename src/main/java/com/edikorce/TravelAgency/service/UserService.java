@@ -6,9 +6,12 @@ import com.edikorce.TravelAgency.model.User;
 import com.edikorce.TravelAgency.repository.RoleRepository;
 import com.edikorce.TravelAgency.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +26,11 @@ public class UserService {
 	private RoleRepository roleRepo;
 	
 	@Autowired PasswordEncoder passwordEncoder;
-	
+
+
 	public void registerDefaultUser(User user) {
 
-		Role roleUser = roleRepo.findByName("ROLE_ADMIN");
+		Role roleUser = roleRepo.findByName("ROLE_USER");
 
 		user.addRole(roleUser);
 
@@ -37,7 +41,7 @@ public class UserService {
 
 		userRepo.save(user);
 	}
-	
+
 	public List<User> listAll() {
 		return userRepo.findAll();
 	}
@@ -70,5 +74,21 @@ public class UserService {
 	public User getByName(String name){
 
 		return userRepo.findByName(name);
+	}
+
+
+	public boolean userExist(String password){
+
+		return userRepo.findByUsername(password) != null;
+	}
+
+
+	public boolean isUserOnTheList(List<User> userList){
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedUserName = authentication.getName();
+
+		User loggedUser = userRepo.findByName(loggedUserName);
+		return userList.contains(loggedUser);
 	}
 }

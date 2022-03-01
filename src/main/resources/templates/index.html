@@ -9,41 +9,38 @@
 </head>
 
 
-<body >
+<body>
 
-<div><!--main div-->
-
-
+	<div><!--main div-->
 
 
-	<!--   NAVBAR -->
-	<nav th:replace="common :: main_navbar"></nav>
 
-	<!--MESSAGE FROM BACKEND-->
-	<div class="h-4 text-center">
-		<h2 th:text="${message}"></h2>
+
+		<!--   NAVBAR -->
+		<nav th:replace="common :: main_navbar"></nav>
+
+		<!--MESSAGE FROM BACKEND-->
+		<div class="h-4 text-center">
+			<h2 th:text="${message}"></h2>
+		</div>
+
+		<!--SEARCH BAR-->
+		<div th:replace="common :: search_bar" ></div>
+
+
+		<!--CAROUSEL-->
+<!--		<div th:replace="common :: carousel" class="container container-fluid"></div>-->
+
+		<div th:replace="common :: owl_carousel" class="container container-fluid"></div>
+
+
+
+		<!--SECTION PAGE 2-->
+		<div th:replace="common :: marketing"></div>
+
+
 	</div>
 
-	<!--SEARCH BAR-->
-
-	<div th:replace="common :: search_bar" ></div>
-
-
-
-
-	<!--CAROUSEL-->
-	<div th:replace="common :: carousel" class="container container-fluid"></div>
-
-
-
-	<!--SECTION PAGE 2-->
-	<div th:replace="common :: marketing">
-
-	</div>
-
-
-</div><!-- end main div-->
-
-	</body>
+</body>
 
 </html>
