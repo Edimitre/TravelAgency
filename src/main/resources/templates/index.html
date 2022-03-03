@@ -1,46 +1,294 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Travel Agency</title>
-	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
-	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<title>TravelAgency</title>
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+	<!-- Google Fonts Roboto -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"/>
+	<!-- MDB -->
+	<link rel="stylesheet" href="/assets/css/mdb.min.css" />
 </head>
 
 
+
+
 <body>
+	<!-- MAIN NAVBAR-->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" th:href="@{/home}">Travel<span class="text-primary">Agency</span></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-	<div><!--main div-->
-
-
-
-
-		<!--   NAVBAR -->
-		<nav th:replace="common :: main_navbar"></nav>
-
-		<!--MESSAGE FROM BACKEND-->
-		<div class="h-4 text-center">
-			<h2 th:text="${message}"></h2>
+		<!-- PERMBAJTJA E NAVBARIT       -->
+		<div class="collapse navbar-collapse">
+			<div class="navbar-nav">
+				<a class="nav-item nav-link active" th:href="@{/home}">Home <span class="sr-only"></span></a>
+				<a class="nav-item nav-link active" th:href="@{/packet/all}">Paketat <span class="sr-only"></span></a>
+				<a class="nav-item nav-link active" th:href="@{/about}">Reth Nesh </a>
+				<a class="nav-item nav-link active" th:href="@{/test}">test</a>
+			</div>
 		</div>
 
-		<!--SEARCH BAR-->
-		<div th:replace="common :: search_bar" ></div>
+		<!-- NQS USER ESHTE ANONIM -->
+		<div sec:authorize="hasRole('ROLE_ANONYMOUS')">
+			<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="btn btn-primary m-1" data-mdb-toggle="modal" data-mdb-target="#registerModal" href="/register">Regjistrohu</a>
+					</li>
+					<li class="nav-item">
+						<a class="btn btn-primary m-1" data-mdb-toggle="modal" data-mdb-target="#myLoginModal" href="/login">Logohu</a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<!-- NQS USER ESHTE USER I THJESHTE-->
+		<div sec:authorize="hasRole('ROLE_USER')">
+			<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link"  th:href="@{#}"></a>
+					</li>
+
+					<li>
+						<a class="nav-link" th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/logout">Dilni</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!--   NQS USER ESTE ADMIN                 -->
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+
+			<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link"  th:href="@{#}"></a>
+					</li>
+
+					<li>
+						<a class="nav-link"  th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/logout">Dilni</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="/admin/home">Funksionet Admin</a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
 
 
-		<!--CAROUSEL-->
-<!--		<div th:replace="common :: carousel" class="container container-fluid"></div>-->
 
-		<div th:replace="common :: owl_carousel" class="container container-fluid"></div>
+		<!-- Login Modal -->
+		<div class="modal fade" id="myLoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Ju Lutem Vendosni Te Dhenat</h4>
+						<button type="button" class="close" data-mdb-dismiss="modal">&times;</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<form th:action="@{/login}" style="max-width: 600px; margin: 0 auto;" id="modal-login" method="post">
+
+							<div class="m-3">
+								<div class="form-group row">
+									<label class="col-form-label col-sm-4"> Emri Juaj :</label>
+									<div class="col-sm-8">
+										<input type="text" th:name="name" class="form-control" required>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-form-label col-sm-4"> Passwordi Juaj :</label>
+									<div class="col-sm-8">
+										<input type="password" th:name="password" class="form-control" required>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<div class="text-center p-3">
+							<button type="submit" class="btn btn-primary" form="modal-login"> Logohu</button>
+						</div>
+						<button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Register Modal -->
+		<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">Regjistrohu</h4>
+						<button type="button" class="close" data-mdb-dismiss="modal">&times;</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<form th:action="@{/process_register}" th:object="${user}" style="max-width: 600px; margin: 0 auto;" id="modal-register" method="post">
+
+							<div class="m-3">
+								<div class="form-group row">
+									<label class="col-form-label col-sm-4"> Name :</label>
+									<div class="col-sm-8">
+										<input type="text" th:field="*{name}" class="form-control" required>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-form-label col-sm-4"> UserName :</label>
+									<div class="col-sm-8">
+										<input type="text" th:field="*{username}" class="form-control" required>
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label class="col-form-label col-sm-4"> Passwordi :</label>
+									<div class="col-sm-8">
+										<input type="password" th:field="*{password}" class="form-control" required>
+									</div>
+								</div>
+
+							</div>
+
+						</form>
+					</div>
+
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<div class="text-center p-3">
+							<button type="submit" class="btn btn-primary" form="modal-register"> Regjistrohu</button>
+						</div>
+						<button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 
-		<!--SECTION PAGE 2-->
-		<div th:replace="common :: marketing"></div>
+	</nav>
+	<!-- Navbar -->
+
+	<!-- carousel start-->
+	<div id="carouselExampleTouch" class="carousel slide" data-mdb-touch="false">
+
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+					<img src="/images/background.jpg" class="d-block w-100" alt="First slide"  style="height: 750px;"/>
+					<div class="carousel-caption d-none d-md-block">
+						<h5 class="fs-1 badge bg-primary text-wrap">TravelAgency</h5>
+						<p class="fs-3 shadow-4 text-primary">“Jobs fill your pockets, adventures fill your soul.”</p>
+					</div>
+			</div>
+			<div th:each="packet: ${packetList}" class="carousel-item">
+				<img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="d-block w-100" alt="Camera" style="height: 750px;"/>
+				<div class="carousel-caption d-none d-md-block">
+					<h5 th:text="${packet.city.name}" class="fs-1 btn btn-primary"></h5>
+					<p th:text="${packet.description}" class="fs-3 shadow-4 "></p>
+				</div>
+			</div>
 
 
+		</div>
+		<button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleTouch" data-mdb-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-mdb-target="#carouselExampleTouch" data-mdb-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
 	</div>
+	<!-- carousel end-->
+
+	<div class="grid">
+	<div class="align-self-stretch text-center mt-2">
+
+		<!-- footer -->
+		<footer class="bg-light text-center text-lg-start">
+			<!-- Grid container -->
+			<div class="container p-4">
+				<!--Grid row-->
+				<div class="row">
+					<!--Grid column-->
+					<div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+						<h5 class="text-uppercase">Our Suggestion</h5>
+
+						<p>
+							“Travel. Your money will return. Your time won’t.”
+
+						</p>
+						<p>
+							“Some beautiful paths can’t be discovered without getting lost.”
+						</p>
+						<p>
+							“Collect Moments, Not Things.”
+						</p>
+						<p>
+							“Live life with no excuses, travel with no regret.”
+						</p>
+					</div>
+					<!--Grid column-->
+
+					<!--Grid column-->
+					<div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+						<h5 class="text-uppercase">TravelAgency</h5>
+
+						<p>
+							Eficience maksimale ..per leket qe ju shpenzoni.
+							Ne kemi cmimet me konkuruese ne treg
+							kjo fale investimit ne sisteme elektronike, resourse njerezore,
+							edhe mjete transportimi
+
+						</p>
+					</div>
+					<!--Grid column-->
+				</div>
+				<!--Grid row-->
+			</div>
+			<!-- Grid container -->
+
+			<!-- Copyright -->
+			<div class="text-center p-3 bg-dark" >
+				© 2020 Copyright:
+				<a class="text-dark" href="/home">TravelAgency</a>
+			</div>
+			<!-- Copyright -->
+		</footer>
+		</div>
+		<!-- MDB SCRIPT-->
+		<script type="text/javascript" src="/assets/js/mdb.min.js"></script>
 
 </body>
-
 </html>

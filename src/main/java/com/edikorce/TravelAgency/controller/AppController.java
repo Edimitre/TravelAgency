@@ -130,7 +130,7 @@ public class AppController {
 	}
 
 	@GetMapping("/packet/offer")
-	private String showOfferPackets(Model model){
+	public String showOfferPackets(Model model){
 
 		model.addAttribute("packetList", packetService.getOfferPackets());
 		return "all_packets";
@@ -173,7 +173,7 @@ public class AppController {
 			model.addAttribute("packetList", loggedUser.getPacketList());
 		}
 
-		return "all_packets";
+		return "packetView/my_packets";
 	}
 
 	@RequestMapping("/packet/search")
@@ -186,10 +186,14 @@ public class AppController {
 
 
 	@RequestMapping("/test")
+	@Transactional
 	public String test(Model model) throws ContentNotFoundExeption {
 
 
-		return "register_success";
+
+
+		model.addAttribute("packetList", packetService.getAllPackets());
+		return "listview/Home";
 
 	}
 

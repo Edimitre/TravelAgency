@@ -209,11 +209,13 @@ public class AdminController {
 
     // PACKET
 
-    @GetMapping("/packet/register")
-    private String showPacketForm(Model model){
+    @RequestMapping("/packet/register")
+    public String showPacketForm(Model model){
 
-        List<City> allCityList = cityService.getAllCities();
-        model.addAttribute("allCityList", allCityList);
+
+
+
+        model.addAttribute("cityList", cityService.getAllCities());
         model.addAttribute("packet", new Packet());
         model.addAttribute("message", "Shto Packet");
 

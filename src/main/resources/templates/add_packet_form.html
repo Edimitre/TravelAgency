@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label for="cityselect" >Qyteti</label>
                             <select id="cityselect" th:field="*{city}" class="form-control" required>
-                                <th:block th:each="cit : ${allCityList}">
+                                <th:block th:each="cit : ${cityList}">
                                     <option th:text="${cit.name}" th:value="${cit.id}"></option>
                                 </th:block>
                             </select>
