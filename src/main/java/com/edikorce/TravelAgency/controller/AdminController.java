@@ -40,7 +40,7 @@ public class AdminController {
     @GetMapping("/home")
     public String home(){
 
-        return "admin_page";
+        return "admin/admin_page";
     }
 
     @GetMapping("/users/all")
@@ -48,7 +48,7 @@ public class AdminController {
 
         List<User> userList = userService.listAll();
         model.addAttribute("userList", userList);
-        return "all_users";
+        return "listview/all_users";
     }
 
     @RequestMapping("/user/edit/{id}")
@@ -61,7 +61,7 @@ public class AdminController {
         model.addAttribute("rolet", rolet);
         model.addAttribute("user", user);
 
-        return "edit_user_form";
+        return "forms/edit_user_form";
 
     }
 
@@ -99,7 +99,7 @@ public class AdminController {
 
 
         model.addAttribute("pageTitle", "Shto Qytet");
-        return "add_city_form";
+        return "forms/add_city_form";
     }
 
     @PostMapping("/city/save")
@@ -117,7 +117,7 @@ public class AdminController {
         List<City> cityList = cityService.getAllCities();
 
         model.addAttribute("cityList", cityList);
-        return "all_cities";
+        return "listview/all_cities";
     }
 
     @RequestMapping("/city/edit/{id}")
@@ -136,7 +136,7 @@ public class AdminController {
 
         model.addAttribute("pageTitle", "Edito Qytetin " + city.getName());
 
-        return "add_city_form";
+        return "forms/add_city_form";
 
     }
 
@@ -172,7 +172,7 @@ public class AdminController {
         model.addAttribute("country", new Country());
 
         model.addAttribute("allContinents", allContinents);
-        return "add_country_form";
+        return "forms/add_country_form";
     }
 
     @GetMapping("/country/all")
@@ -180,7 +180,7 @@ public class AdminController {
         model.addAttribute("country", new Country());
         List<Country> countryList = countryService.getAllCountries();
         model.addAttribute("countryList", countryList);
-        return "all_countries";
+        return "listview/all_countries";
     }
 
 
@@ -191,7 +191,7 @@ public class AdminController {
         List<Continent> allContinents = continentService.getAllContinents();
         model.addAttribute("allContinents", allContinents);
         model.addAttribute("country", country);
-        return "add_country_form";
+        return "forms/add_country_form";
     }
 
     @RequestMapping("/country/delete/{id}")
@@ -212,14 +212,11 @@ public class AdminController {
     @RequestMapping("/packet/register")
     public String showPacketForm(Model model){
 
-
-
-
         model.addAttribute("cityList", cityService.getAllCities());
         model.addAttribute("packet", new Packet());
         model.addAttribute("message", "Shto Packet");
 
-        return"add_packet_form";
+        return"forms/add_packet_form";
     }
 
     @PostMapping("/packet/save")
@@ -234,13 +231,13 @@ public class AdminController {
     public String updatePacket(@PathVariable(value = "id") Long id, Model model) throws ContentNotFoundExeption {
         Packet packet = packetService.getPacketById(id);
 
-        List<City> allCityList = cityService.getAllCities();
+        List<City> cityList = cityService.getAllCities();
 
         model.addAttribute("packet", packet);
 
-        model.addAttribute("allCityList", allCityList);
+        model.addAttribute("cityList", cityList);
         model.addAttribute("message", "Edit Packet");
-        return "add_packet_form";
+        return "forms/add_packet_form";
     }
 
     @RequestMapping("/packet/details/{id}")
@@ -253,7 +250,7 @@ public class AdminController {
         model.addAttribute("packet", packet);
         model.addAttribute("user", new User());
         model.addAttribute("userList", userList);
-        return "packet_details";
+        return "admin/packet_details";
     }
 
 }

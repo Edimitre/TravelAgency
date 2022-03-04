@@ -41,7 +41,7 @@ public class AppController {
 
 		if (authentication == null || authentication instanceof AnonymousAuthenticationToken){
 
-			return "login";
+			return "/forms/login";
 
 		}
 
@@ -53,7 +53,7 @@ public class AppController {
 	public String logOut(Model model){
 
 		model.addAttribute("user", new User());
-		return "login";
+		return "/forms/login";
 	}
 
 	@RequestMapping("/")
@@ -76,7 +76,7 @@ public class AppController {
 
 	@RequestMapping("/process_register")
 	public String processRegister(User user, Model model) {
-		// todo check if user in database ...shto nje unique username si field tek user qe ta kapim nga databaza sepse nga passswordi eshte i enkriptuar
+
 		// user qe po regjistrohet kontrollehet eshte apo jo ne database
 		boolean userExist = userService.userExist(user.getUsername());
 		if (userExist){
@@ -91,7 +91,7 @@ public class AppController {
 		}
 
 
-		return "login";
+		return "/forms/login";
 	}
 
 	@GetMapping("/users")
@@ -100,8 +100,8 @@ public class AppController {
 		model.addAttribute("user", new User());
 		List<User> listUsers = userService.listAll();
 		model.addAttribute("listUsers", listUsers);
-		
-		return "users";
+		// todo hmtl per all users
+		return "/listview/all_users";
 	}
 	
 	@GetMapping("/users/edit/{id}")
@@ -110,7 +110,7 @@ public class AppController {
 		List<Role> listRoles = userService.listRoles();
 		model.addAttribute("user", user);
 		model.addAttribute("listRoles", listRoles);
-		return "user_form";
+		return "/forms/user_form";
 	}
 	
 	@PostMapping("/users/save")
@@ -126,14 +126,14 @@ public class AppController {
 
 		model.addAttribute("user", new User());
 		model.addAttribute("packetList", packetService.getAllPackets());
-		return "all_packets";
+		return "/listview/all_packets";
 	}
 
 	@GetMapping("/packet/offer")
 	public String showOfferPackets(Model model){
 
 		model.addAttribute("packetList", packetService.getOfferPackets());
-		return "all_packets";
+		return "/listview/all_packets";
 	}
 
 	@RequestMapping("/packet/profile/{id}")
@@ -150,11 +150,11 @@ public class AppController {
 			System.out.println(isUserOnTheList);
 			model.addAttribute("isUserOnTheList", isUserOnTheList);
 
-			return "/packetView/packet_profile";
+			return "/profiles/packet_profile";
 		} catch (ContentNotFoundExeption e) {
 			e.printStackTrace();
 		}
-		return "/packetView/packet_profile";
+		return "/profiles/packet_profile";
 	}
 
 	@GetMapping("/packet/mine")
@@ -173,7 +173,7 @@ public class AppController {
 			model.addAttribute("packetList", loggedUser.getPacketList());
 		}
 
-		return "packetView/my_packets";
+		return "/listview/my_packets";
 	}
 
 	@RequestMapping("/packet/search")
@@ -181,20 +181,8 @@ public class AppController {
 
 		System.out.println(packetService.getPacketsByKeyword(keyword));
 		model.addAttribute("packetList", packetService.getPacketsByKeyword(keyword));
-		return "all_packets";
+		return "/listview/all_packets";
 	}
 
-
-	@RequestMapping("/test")
-	@Transactional
-	public String test(Model model) throws ContentNotFoundExeption {
-
-
-
-
-		model.addAttribute("packetList", packetService.getAllPackets());
-		return "listview/Home";
-
-	}
 
 }

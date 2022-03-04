@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Paketa</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"/>
+    <!-- MDB -->
+    <link rel="stylesheet" href="/assets/css/mdb.min.css" />
+</head>
+<body>
+
+
+<!-- MAIN NAVBAR-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" th:href="@{/home}">Travel<span class="text-primary">Agency</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- PERMBAJTJA E NAVBARIT       -->
+    <div class="collapse navbar-collapse">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" th:href="@{/home}">Home <span class="sr-only"></span></a>
+            <a class="nav-item nav-link active" th:href="@{/packet/all}">Paketat <span class="sr-only"></span></a>
+            <a class="nav-item nav-link active" th:href="@{/about}">Reth Nesh </a>
+        </div>
+    </div>
+
+    <!-- NQS USER ESHTE ANONIM -->
+    <div sec:authorize="hasRole('ROLE_ANONYMOUS')">
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="btn btn-primary m-1" data-mdb-toggle="modal" data-mdb-target="#registerModal" href="/register">Regjistrohu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary m-1" data-mdb-toggle="modal" data-mdb-target="#myLoginModal" href="/login">Logohu</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- NQS USER ESHTE USER I THJESHTE-->
+    <div sec:authorize="hasRole('ROLE_USER')">
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link"  th:href="@{#}"></a>
+                </li>
+
+                <li>
+                    <a class="nav-link" th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Dilni</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!--   NQS USER ESTE ADMIN                 -->
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link"  th:href="@{#}"></a>
+                </li>
+
+                <li>
+                    <a class="nav-link"  th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Dilni</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/home">Funksionet Admin</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="myLoginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Ju Lutem Vendosni Te Dhenat</h4>
+                    <button type="button" class="close" data-mdb-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form th:action="@{/login}" style="max-width: 600px; margin: 0 auto;" id="modal-login" method="post">
+
+                        <div class="m-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-4"> Emri Juaj :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" th:name="name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-4"> Passwordi Juaj :</label>
+                                <div class="col-sm-8">
+                                    <input type="password" th:name="password" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <div class="text-center p-3">
+                        <button type="submit" class="btn btn-primary" form="modal-login"> Logohu</button>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Regjistrohu</h4>
+                    <button type="button" class="close" data-mdb-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form th:action="@{/process_register}" th:object="${user}" style="max-width: 600px; margin: 0 auto;" id="modal-register" method="post">
+
+                        <div class="m-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-4"> Name :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" th:field="*{name}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-4"> UserName :</label>
+                                <div class="col-sm-8">
+                                    <input type="text" th:field="*{username}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-4"> Passwordi :</label>
+                                <div class="col-sm-8">
+                                    <input type="password" th:field="*{password}" class="form-control" required>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <div class="text-center p-3">
+                        <button type="submit" class="btn btn-primary" form="modal-register"> Regjistrohu</button>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</nav>
+
+<div class="container h-100 d-flex justify-content-center mt-4">
+    <div class="card mb-3 w-75 " >
+        <div class="row no-gutters">
+            <div class="card-img-top">
+                <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${packet.city.name}">Titulli</h5>
+                    <p class="card-text" th:text="${packet.description}">Pershkrimi</p>
+                    <p class="card-text"><small class="text-muted" th:text="'Ditet e qendrimit : ' + ${packet.nrOfDays}">Ditet</small></p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 bg-light text-right">
+                                <a sec:authorize="hasRole('ROLE_USER')" th:if="${isUserOnTheList}" th:href="@{/packet/all}" class="btn btn-primary btn-lg text-center" > Regjistruar</a></div>
+                                <a sec:authorize="hasRole('ROLE_USER')" th:unless="${isUserOnTheList}" class="btn btn-primary btn-lg text-center" th:href="@{'/transaction/buy/packet/' + ${packet.id}}" > Blij Paketen</a></div>
+
+                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${isUserOnTheList}"  th:href="@{/packet/all}" class="btn btn-primary btn-lg text-center" > Regjistruar</a></div>
+                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:unless="${isUserOnTheList}"  class="btn btn-primary btn-lg text-center" th:href="@{'/transaction/buy/packet/' + ${packet.id}}"> Blij Paketen</a></div>
+
+                            </div>
+
+                            <div class="col-md-12 bg-light text-center">
+                                <a sec:authorize="hasRole('ROLE_ADMIN')"  class="btn btn-danger btn-lg text-center" th:href="@{'/admin/packet/details/' + ${packet.id}}"> Admin</a>
+                            </div>
+
+
+
+                            <div class="col-md-12 bg-light text-center">
+                                <a sec:authorize="hasRole('ROLE_ANONYMOUS')" class="btn btn-primary btn-lg text-center" th:href="@{/login}">Logohu Per Me Shume</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MDB SCRIPT-->
+    <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
+</body>
+</html>
