@@ -23,42 +23,36 @@ public class TransactionController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private ImageService imageService;
 
     @Autowired
     private PacketService packetService;
 
     @RequestMapping("/buy/packet/{id}")
     @Transactional
-    public String addPacketToUser(@PathVariable(value = "id") Long id, Model model) throws ContentNotFoundExeption {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedUserName = authentication.getName();
-
-        User loggedUser = userService.getByName(loggedUserName);
-
-        if (loggedUser != null){
-            Packet packet = packetService.getPacketById(id);
+    public String addPacketToUser(@PathVariable(value = "id") Long id) throws ContentNotFoundExeption {
 
 
-            // add packet to user
-            loggedUser.getPacketList().add(packet);
+        Packet packet = packetService.getPacketById(id);
+
+        userService.addPacket(packet);
 
 
+        return "redirect:/packet/mine";
 
-            // vendos nr e klieneteve qe kane prenotuar
-            int usersInPacket = packet.getUserList().size();
-
-            packet.setNrOfTimesBooked(usersInPacket + 1);
-
-            // save edited user
-            userService.save(loggedUser);
-            return "redirect:/packet/mine";
-        }
-        return "redirect:/home";
     }
 
 
+    @RequestMapping("/cancel/packet/{id}")
+    @Transactional
+    public String cancelUserPacket(@PathVariable(value = "id") Long id) throws ContentNotFoundExeption {
+
+        // get packet
+        Packet packet = packetService.getPacketById(id);
+
+
+        userService.removePacket(packet);
+
+        return "redirect:/packet/mine";
+    }
 
 }

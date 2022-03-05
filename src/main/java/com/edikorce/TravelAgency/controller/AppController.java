@@ -100,7 +100,7 @@ public class AppController {
 		model.addAttribute("user", new User());
 		List<User> listUsers = userService.listAll();
 		model.addAttribute("listUsers", listUsers);
-		// todo hmtl per all users
+
 		return "/listview/all_users";
 	}
 	
@@ -117,6 +117,16 @@ public class AppController {
 	public String saveUser(User user) {
 		userService.save(user);
 		return "redirect:/users";
+	}
+
+	@GetMapping("/users/profile")
+	public String showUserProfile(Model model){
+
+		User user = userService.getLoggedUser();
+		model.addAttribute("user", user);
+
+
+		return "/profiles/user_profile";
 	}
 
 	@GetMapping("/packet/all")
@@ -182,6 +192,13 @@ public class AppController {
 		System.out.println(packetService.getPacketsByKeyword(keyword));
 		model.addAttribute("packetList", packetService.getPacketsByKeyword(keyword));
 		return "/listview/all_packets";
+	}
+
+	@GetMapping("/aboutus")
+	public String aboutUs(){
+
+		return "about_us";
+
 	}
 
 

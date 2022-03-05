@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 public class Packet implements Serializable {
 
@@ -32,11 +33,14 @@ public class Packet implements Serializable {
 
     private String description;
 
+    private Double price;
+
     private Boolean isOffer;
 
     private Boolean isValid;
 
-    @ManyToMany(mappedBy = "packetList", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "packetList", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<User> userList = new ArrayList<>();
 
 }

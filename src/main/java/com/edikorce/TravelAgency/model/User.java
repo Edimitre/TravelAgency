@@ -34,6 +34,7 @@ public class User implements Serializable {
 
     private String password;
 
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -42,17 +43,22 @@ public class User implements Serializable {
     )
     private Set<Role> roles = new HashSet<>();
 
+    // kjo duhet te meret nga banka
+    private Double amountOfMoney;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_packets",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "packet_id", referencedColumnName = "id"))
     @Fetch(value = FetchMode.SUBSELECT)
+    @ToString.Exclude
     private List<Packet> packetList = new ArrayList<>();
 
 
     public void addRole(Role role) {
         this.roles.add(role);
     }
+
+
 
 }

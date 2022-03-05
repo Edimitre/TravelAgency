@@ -26,7 +26,7 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active" th:href="@{/home}">Home <span class="sr-only"></span></a>
             <a class="nav-item nav-link active" th:href="@{/packet/all}">Paketat <span class="sr-only"></span></a>
-            <a class="nav-item nav-link active" th:href="@{/about}">Reth Nesh </a>
+            <a class="nav-item nav-link active" th:href="@{/aboutus}">Reth Nesh </a>
         </div>
     </div>
 
@@ -54,7 +54,7 @@
                 </li>
 
                 <li>
-                    <a class="nav-link" th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
+                    <a class="nav-link" th:href="@{/users/profile}">Pershendetje <span sec:authentication="name"> </span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
@@ -76,7 +76,7 @@
                 </li>
 
                 <li>
-                    <a class="nav-link"  th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
+                    <a class="nav-link"  th:href="@{/users/profile}">Pershendetje <span sec:authentication="name"> </span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
@@ -198,7 +198,7 @@
 
 <div class="row justify-content-center">
     <div class="col-4">
-<!--        put card-->
+<!--      card-->
         <div th:each="packet:${packetList}"  id="container">
 
             <div class="product-details">
@@ -212,15 +212,17 @@
                     <i class="fa fa-star-o" aria-hidden="true"></i>
 	            </span>
 
-                <p class="information" th:text="${packet.description}">" Let's spread the joy , here is Christmas , the most awaited day of the year.Christmas Tree is what one need the most. Here is the correct tree which will enhance your Christmas.</p>
+                <p class="information" th:text="${packet.description}">text text text</p>
 
 
 
                 <div class="control">
                     <button class="btn ">
-                        <span class="price">$250</span>
+
+                        <span class="price text-white" th:text="'Cmimi :' + ${packet.price}">250</span>
                         <span class="shopping-cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
-                        <span class="buy">Dil</span>
+
+                        <a th:href="@{'/transaction/cancel/packet/' + ${packet.id}}" class="buy">Anullo</a>
                     </button>
                 </div>
 

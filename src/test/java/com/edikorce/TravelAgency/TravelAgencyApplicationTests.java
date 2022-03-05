@@ -54,13 +54,11 @@ class MyTravelAgencyApplicationTests {
 	@Test
 	public void testCreateRole(){
 
-
 		Role role = new Role();
+
 		role.setName("ROLE_USER");
 
-
 		Assertions.assertThat(roleRepository.save(role)).isInstanceOf(Role.class);
-
 
 	}
 
@@ -69,7 +67,7 @@ class MyTravelAgencyApplicationTests {
 
 
 		City city = new City();
-		city.setName("korce");
+		city.setName("Korce");
 
 		Country country = countryRepository.getById(1L);
 		city.setCountry(country);

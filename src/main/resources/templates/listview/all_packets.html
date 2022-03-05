@@ -30,7 +30,7 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link active" th:href="@{/home}">Home <span class="sr-only"></span></a>
         <a class="nav-item nav-link active" th:href="@{/packet/all}">Paketat <span class="sr-only"></span></a>
-        <a class="nav-item nav-link active" th:href="@{/about}">Reth Nesh </a>
+        <a class="nav-item nav-link active" th:href="@{/aboutus}">Reth Nesh </a>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
           </li>
 
           <li>
-            <a class="nav-link" th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
+            <a class="nav-link" th:href="@{/users/profile}">Pershendetje <span sec:authentication="name"> </span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
@@ -80,7 +80,7 @@
           </li>
 
           <li>
-            <a class="nav-link"  th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
+            <a class="nav-link"  th:href="@{/users/profile}">Pershendetje <span sec:authentication="name"> </span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
@@ -241,7 +241,7 @@
     <div id="products" class="row view-group">
 
       <div th:each="packet:${packetList}" class="item col-xs-4 col-lg-4">
-        <div  class="card">
+        <div  class="card mt-3">
           <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
             <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="img-fluid" />
             <a href="#!">

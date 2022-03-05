@@ -10,6 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 public class Continent implements Serializable {
     @Id

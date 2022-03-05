@@ -30,7 +30,7 @@ public class UserService {
 
 	public void registerDefaultUser(User user) {
 
-		Role roleUser = roleRepo.findByName("ROLE_USER");
+		Role roleUser = roleRepo.findByName("ROLE_ADMIN");
 
 		user.addRole(roleUser);
 
@@ -65,7 +65,15 @@ public class UserService {
 		Optional<User> user = userRepo.findById(id);
 		user.ifPresent(value -> userRepo.delete(value));
 	}
-	
+
+	public User getLoggedUser(){
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedUserName = authentication.getName();
+
+		return userRepo.findByName(loggedUserName);
+	}
+
 	private void encodePassword(User user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);		
@@ -76,12 +84,10 @@ public class UserService {
 		return userRepo.findByName(name);
 	}
 
-
 	public boolean userExist(String password){
 
 		return userRepo.findByUsername(password) != null;
 	}
-
 
 	public boolean isUserOnTheList(List<User> userList){
 
@@ -90,5 +96,56 @@ public class UserService {
 
 		User loggedUser = userRepo.findByName(loggedUserName);
 		return userList.contains(loggedUser);
+	}
+
+	public void addPacket(Packet packet){
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedUserName = authentication.getName();
+
+		User loggedUser = userRepo.findByName(loggedUserName);
+
+		if (loggedUser != null){
+
+
+			loggedUser.getPacketList().add(packet);
+
+
+
+			// users math
+			int usersInPacket = packet.getUserList().size();
+			packet.setNrOfTimesBooked(usersInPacket + 1);
+
+//			money math
+			loggedUser.setAmountOfMoney(loggedUser.getAmountOfMoney() - packet.getPrice());
+
+
+
+			// save edited user
+			save(loggedUser);
+		}
+	}
+
+	public void removePacket(Packet packet){
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String loggedUserName = authentication.getName();
+
+		User loggedUser = userRepo.findByName(loggedUserName);
+
+
+		// users math
+		int usersInPacket = packet.getUserList().size();
+		packet.setNrOfTimesBooked(usersInPacket - 1);
+
+		// money math
+
+		loggedUser.setAmountOfMoney(loggedUser.getAmountOfMoney() + packet.getPrice());
+
+
+
+		loggedUser.getPacketList().remove(packet);
+
+		save(loggedUser);
 	}
 }

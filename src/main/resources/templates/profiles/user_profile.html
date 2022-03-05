@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/user_profile.css" />
+    <title>Profili</title>
+
+    <link rel="stylesheet" href="/assets/css/mdb.min.css" />
+
+
+
+  </head>
+  <body >
+
+
+  <!-- MAIN NAVBAR-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" th:href="@{/home}">Travel<span class="text-primary">Agency</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- PERMBAJTJA E NAVBARIT       -->
+    <div class="collapse navbar-collapse">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" th:href="@{/home}">Home <span class="sr-only"></span></a>
+        <a class="nav-item nav-link active" th:href="@{/packet/all}">Dil<span class="sr-only"></span></a>
+
+      </div>
+    </div>
+
+
+  </nav>
+
+
+<!--  UserCard-->
+  <div class="container mt-4">
+
+    <div class="img" style="    background-image: linear-gradient(150deg, rgba(63, 174, 255, .3)15%, rgba(63, 174, 255, .3)70%, rgba(63, 174, 255, .3)94%), url(https://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg);
+    height: 350px;background-size: cover;"></div>
+    <div class="card social-prof">
+      <div class="card-body">
+        <div class="wrapper">
+          <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="user-profile">
+          <h3 th:text="${user.name}">mondi mondi</h3>
+          <p th:text="'Vlera Lekeve : ' + ${user.amountOfMoney}">vlera lekeve </p>
+        </div>
+
+
+
+
+
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class=" nav nav-tabs justify-content-center s-nav">
+              <li><a href="#">Vendi Ku Banon</a></li>
+              <li><a href="#">i Ardhur ne Korce (put boolean here)</a></li>
+              <li><a href="#">Fshati i Lindjes</a></li>
+              <li><a href="#">Photot me Kusherinjte e greqise </a></li>
+              <li><a href="#">Videot me Kunaten</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
+  </body>
+</html>

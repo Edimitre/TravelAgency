@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html style="font-size: 16px;" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>Paketa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+
+    <title>About Us</title>
+    <link rel="stylesheet" href="/assets/css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="/assets/css/Page-1.css" media="screen">
+
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
@@ -11,8 +16,7 @@
     <!-- MDB -->
     <link rel="stylesheet" href="/assets/css/mdb.min.css" />
 </head>
-<body>
-
+<body class="u-body u-xl-mode">
 
 <!-- MAIN NAVBAR-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,7 +30,7 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link active" th:href="@{/home}">Home <span class="sr-only"></span></a>
             <a class="nav-item nav-link active" th:href="@{/packet/all}">Paketat <span class="sr-only"></span></a>
-            <a class="nav-item nav-link active" th:href="@{/aboutus}">Reth Nesh </a>
+            <a class="nav-item nav-link active" th:href="@{/about}">Reth Nesh </a>
         </div>
     </div>
 
@@ -54,7 +58,7 @@
                 </li>
 
                 <li>
-                    <a class="nav-link" th:href="@{/users/profile}">Pershendetje <span sec:authentication="name"> </span></a>
+                    <a class="nav-link" th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
@@ -76,7 +80,7 @@
                 </li>
 
                 <li>
-                    <a class="nav-link"  th:href="@{/users/profile}">Pershendetje <span sec:authentication="name"> </span></a>
+                    <a class="nav-link"  th:href="@{#}">Pershendetje <span sec:authentication="name"> </span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/packet/mine}">Paketat e Mija</a>
@@ -194,48 +198,108 @@
 
 </nav>
 
-<div class="container h-100 d-flex justify-content-center mt-4">
-    <div class="card mb-3 w-75 " >
-        <div class="row no-gutters">
-            <div class="card-img-top">
-                <img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="card-img" alt="...">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${packet.city.name}">Titulli</h5>
-                    <p class="card-text" th:text="${packet.description}">Pershkrimi</p>
-                    <p class="card-text" th:text="'Cmimi : ' + ${packet.price}">cmimi</p>
-                    <p class="card-text"><small class="text-muted" th:text="'Ditet e qendrimit : ' + ${packet.nrOfDays}">Ditet</small></p>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12 bg-light text-right">
-                                <a sec:authorize="hasRole('ROLE_USER')" th:if="${isUserOnTheList}" th:href="@{/packet/all}" class="btn btn-primary btn-lg text-center" > Regjistruar</a></div>
-                                <a sec:authorize="hasRole('ROLE_USER')" th:unless="${isUserOnTheList}" class="btn btn-primary btn-lg text-center" th:href="@{'/transaction/buy/packet/' + ${packet.id}}" > Blij Paketen</a></div>
 
-                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${isUserOnTheList}"  th:href="@{/packet/all}" class="btn btn-primary btn-lg text-center" > Regjistruar</a></div>
-                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:unless="${isUserOnTheList}"  class="btn btn-primary btn-lg text-center" th:href="@{'/transaction/buy/packet/' + ${packet.id}}"> Blij Paketen</a></div>
+<!-- SECTION-->
 
-                            </div>
-
-                            <div class="col-md-12 bg-light text-center">
-                                <a sec:authorize="hasRole('ROLE_ADMIN')"  class="btn btn-danger btn-lg text-center" th:href="@{'/admin/packet/details/' + ${packet.id}}"> Admin</a>
-                            </div>
-
-
-
-                            <div class="col-md-12 bg-light text-center">
-                                <a sec:authorize="hasRole('ROLE_ANONYMOUS')" class="btn btn-primary btn-lg text-center" th:href="@{/login}">Logohu Per Me Shume</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<section class="u-clearfix u-section-1" id="sec-5fe0">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <h1 class="u-text u-text-default u-text-1">About Us<br>
+        </h1>
+        <h5 class="u-text u-text-default u-text-2">Travel Agency eshte themeluar ne vitin 2000<br>
+        </h5>
+        <h5 class="u-text u-text-default u-text-2">qellimi jone eshte qe gjithmone klientat tane te ngelen te kenaqur<br>
+        <h5 class="u-text u-text-3">prandaj gjate gjite kesaj kohe Eficience maksimale ..per leket qe ju shpenzoni.<br>
+            Ne kemi cmimet me konkuruese ne treg kjo fale investimit ne sisteme elektronike, <br>
+            resourse njerezore, edhe mjete transportimi<br>
+        </h5>
+        <a href="#"
+           class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-1-light-2 u-radius-50 u-btn-1"><span
+                class="u-icon"><svg class="u-svg-content" viewBox="0 0 513.64 513.64" x="0px" y="0px"
+                                    style="width: 1em; height: 1em;"><path
+                d="M499.66,376.96l-71.68-71.68c-25.6-25.6-69.12-15.359-79.36,17.92c-7.68,23.041-33.28,35.841-56.32,30.72 c-51.2-12.8-120.32-79.36-133.12-133.12c-7.68-23.041,7.68-48.641,30.72-56.32c33.28-10.24,43.52-53.76,17.92-79.36l-71.68-71.68 c-20.48-17.92-51.2-17.92-69.12,0l-48.64,48.64c-48.64,51.2,5.12,186.88,125.44,307.2c120.32,120.32,256,176.641,307.2,125.44 l48.64-48.64C517.581,425.6,517.581,394.88,499.66,376.96z"></path></svg><img></span>&nbsp;Call
+            now
+        </a>
+        <img class="u-image u-image-default u-image-1" src="/images/background.jpg" alt="" data-image-width="1500"
+             data-image-height="1000">
+        <div class="u-container-style u-group u-palette-1-base u-preserve-proportions u-shape-rectangle u-group-1">
+            <div class="u-container-layout u-container-layout-1">
+                <h3 class="u-custom-font u-font-lato u-text u-text-default u-text-4">Kontakt</h3>
+                <p class="u-text u-text-default u-text-5"><span class="u-file-icon u-icon u-icon-2"><img
+                        src="images/1.png" alt=""></span>&nbsp;​ TravelAgency@Email.com<span style="font-size: 1rem;">
+                <span style="font-size: 0.875rem;"></span>
+              </span>
+                    <br>
+                </p>
+                <a href="https://nicepage.best"
+                   class="u-active-none u-bottom-left-radius-0 u-bottom-right-radius-0 u-btn u-btn-rectangle u-button-style u-hover-none u-none u-radius-0 u-top-left-radius-0 u-top-right-radius-0 u-btn-2"><span
+                        class="u-icon"><svg class="u-svg-content" viewBox="0 0 405.333 405.333" x="0px" y="0px"
+                                            style="width: 1em; height: 1em;"><path
+                        d="M373.333,266.88c-25.003,0-49.493-3.904-72.704-11.563c-11.328-3.904-24.192-0.896-31.637,6.699l-46.016,34.752    c-52.8-28.181-86.592-61.952-114.389-114.368l33.813-44.928c8.512-8.512,11.563-20.971,7.915-32.64    C142.592,81.472,138.667,56.96,138.667,32c0-17.643-14.357-32-32-32H32C14.357,0,0,14.357,0,32    c0,205.845,167.488,373.333,373.333,373.333c17.643,0,32-14.357,32-32V298.88C405.333,281.237,390.976,266.88,373.333,266.88z"></path></svg><img></span>&nbsp;+355
+                    68-68-686
+                </a>
+                <h6 class="u-text u-text-default u-text-6"><span class="u-file-icon u-icon u-text-white"><img
+                        src="images/2.png" alt=""></span>&nbsp;&nbsp;Adresa : Korce ,&nbsp;&nbsp;Lagja 12,rr te vajturit<br>
+                </h6>
             </div>
         </div>
+
     </div>
-</div>
+</section>
 
 
-<!-- MDB SCRIPT-->
-    <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
+<!-- footer -->
+<footer class="bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Our Suggestion</h5>
+
+                <p>
+                    “Travel. Your money will return. Your time won’t.”
+
+                </p>
+                <p>
+                    “Some beautiful paths can’t be discovered without getting lost.”
+                </p>
+                <p>
+                    “Collect Moments, Not Things.”
+                </p>
+                <p>
+                    “Live life with no excuses, travel with no regret.”
+                </p>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">TravelAgency</h5>
+
+                <p>
+                    Eficience maksimale ..per leket qe ju shpenzoni.
+                    Ne kemi cmimet me konkuruese ne treg
+                    kjo fale investimit ne sisteme elektronike, resourse njerezore,
+                    edhe mjete transportimi
+
+                </p>
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3 bg-dark text-white" >
+        © 2020 Copyright:
+        <a class="text-white" href="/home">TravelAgency</a>
+    </div>
+    <!-- Copyright -->
+</footer>
+
+<script class="u-script" type="text/javascript" src="/assets/js/jquery-1.9.1.min.js" defer=""></script>
+<script class="u-script" type="text/javascript" src="/assets/js/nicepage.js" defer=""></script>
 </body>
 </html>

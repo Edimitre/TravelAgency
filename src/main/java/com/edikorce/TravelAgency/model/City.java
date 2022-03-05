@@ -26,6 +26,7 @@ public class City implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nationality", referencedColumnName = "id")
+    @ToString.Exclude
     Country country;
 
 }
