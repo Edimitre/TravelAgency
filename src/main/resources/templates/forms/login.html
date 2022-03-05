@@ -13,7 +13,7 @@
   <title>Logoju</title>
 </head>
 
-<body>
+<body th:style="'background: url(/images/background.jpg) no-repeat center center fixed;background-size: cover;'">
 
 <!-- MAIN NAVBAR-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -34,11 +34,11 @@
 </nav>
 
 
-
+<!--LOGIN FORM-->
 <div class="container text-center mt-4">
 
     <div>
-        <h1>Logohu</h1>
+        <h1 class="text-white">Logohu</h1>
     </div>
 
     <form th:action="@{/login}" th:object="${user}" method="post"
@@ -69,6 +69,8 @@
     <label class="h2 text-center" th:text="${message}">test</label>
 
 </div>
+
+
 <!-- MDB SCRIPT-->
 <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
 </body>

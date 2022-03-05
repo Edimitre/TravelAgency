@@ -47,7 +47,6 @@
 					</li>
 				</ul>
 			</div>
-
 		</div>
 
 		<!-- NQS USER ESHTE USER I THJESHTE-->
@@ -221,7 +220,7 @@
 			<div th:each="packet: ${packetList}" class="carousel-item">
 				<img th:src="*{'data:image/jpeg;base64,'+{packet.city.image}}" class="d-block w-100" alt="Camera" style="height: 750px;"/>
 				<div class="carousel-caption d-none d-md-block">
-					<h5 th:text="${packet.city.name}" class="fs-1 btn btn-primary"></h5>
+					<a th:text="${packet.city.name}" th:href="@{'/packet/profile/' + ${packet.id}}" class="fs-1 btn btn-primary"></a>
 					<p th:text="${packet.description}" class="fs-3 shadow-4 "></p>
 				</div>
 			</div>
@@ -296,6 +295,7 @@
 		</div>
 		<!-- MDB SCRIPT-->
 		<script type="text/javascript" src="/assets/js/mdb.min.js"></script>
+	</div>
 
 </body>
 </html>
