@@ -170,15 +170,9 @@ public class AppController {
 	@GetMapping("/packet/mine")
 	public String myPackets(Model model){
 
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String loggedUserName = authentication.getName();
-
-		User loggedUser = userService.getByName(loggedUserName);
+		User loggedUser = userService.getLoggedUser();
 
 		if (loggedUser !=null){
-
-
 
 			model.addAttribute("packetList", loggedUser.getPacketList());
 		}

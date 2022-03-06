@@ -47,6 +47,13 @@
                             </div>
                         </div>
 
+                        <!--EMAIL INPUT-->
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4 font-weight-bold display-3">Email</label>
+                            <div class="col-sm-8">
+                                <input type="email" th:field="*{email}" class="form-control" required>
+                            </div>
+                        </div>
 
                         <!--MONEY INPUT-->
                         <div class="form-group row">
@@ -80,55 +87,7 @@
     </div>
 </div>
 
-<!--  DIALOGU MODAL edito qyetetin-->
-<div class="modal" id="myAddCountryModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Ju Lutem Vendosni Shtetin Edhe Kontinentin Perkates</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <form  th:action="@{/country/save}" style="max-width: 600px; margin: 0 auto;" id="modal-add-country">
-                    <div class="m-3">
-                        <div class="form-group row">
-                            <label class="col-form-label col-sm-4"> Emri i Shtetit :</label>
-                            <div class="col-sm-8">
-                                <input type="text" th:name="countryName" class="form-control" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-form-label col-sm-8"> Zgjidh Kontinentin Perkates :</label>
-                            <select th:name="continentName" id="continents">
-                                <option value="Europe">Europe</option>
-                                <option value="Afrika">Afrika</option>
-                                <option value="Azia">Azia</option>
-                                <option value="Australia">Australia</option>
-                                <option value="Antarktida">Antarktida</option>
-                                <option value="Amerika Veriore">Amerika Veriore</option>
-                                <option value="Amerika Jugore">Amerika Jugore</option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <div class="text-center p-3">
-                    <button type="submit" class="btn btn-primary" form="modal-add-country"> Ruaj</button>
-                </div>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Mbyll</button>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 <script type="text/javascript" src="/assets/js/mdb.min.js"></script>
 </body>

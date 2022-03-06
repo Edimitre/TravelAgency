@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -104,6 +103,8 @@ public class UserService {
 		String loggedUserName = authentication.getName();
 
 		User loggedUser = userRepo.findByName(loggedUserName);
+
+
 
 		if (loggedUser != null){
 

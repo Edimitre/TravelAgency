@@ -30,6 +30,10 @@ public class AdminController {
     private CityService cityService;
     @Autowired
     private PacketService packetService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private EmailService emailService;
 
 
 
@@ -251,6 +255,27 @@ public class AdminController {
         model.addAttribute("user", new User());
         model.addAttribute("userList", userList);
         return "admin/packet_details";
+    }
+
+
+
+
+    @RequestMapping("/orders/all")
+    public String allOrders(Model model){
+
+        model.addAttribute("orders", orderService.getAllOrders());
+        return "listview/all_orders";
+    }
+
+
+    @RequestMapping("/order/approve/{id}")
+    public String approveOrder(@PathVariable(value = "id") Long id) throws ContentNotFoundExeption {
+
+        Order order = orderService.getOrderById(id);
+        orderService.approveOrder(order);
+        emailService.sendEmail(order.getUser(), "Paketa u aprovua");
+        orderService.deleteOrder(order);
+        return "redirect:/admin/orders/all";
     }
 
 }

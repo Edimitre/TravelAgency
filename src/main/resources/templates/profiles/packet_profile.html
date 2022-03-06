@@ -210,10 +210,10 @@
                         <div class="row">
                             <div class="col-md-12 bg-light text-right">
                                 <a sec:authorize="hasRole('ROLE_USER')" th:if="${isUserOnTheList}" th:href="@{/packet/all}" class="btn btn-primary btn-lg text-center" > Regjistruar</a></div>
-                                <a sec:authorize="hasRole('ROLE_USER')" th:unless="${isUserOnTheList}" class="btn btn-primary btn-lg text-center" th:href="@{'/transaction/buy/packet/' + ${packet.id}}" > Blij Paketen</a></div>
+                                <a sec:authorize="hasRole('ROLE_USER')" th:unless="${isUserOnTheList}" class="btn btn-primary btn-lg text-center" th:href="@{'/transaction/place/order/' + ${packet.id}}" > Prenoto Paketen</a></div>
 
                                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:if="${isUserOnTheList}"  th:href="@{/packet/all}" class="btn btn-primary btn-lg text-center" > Regjistruar</a></div>
-                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:unless="${isUserOnTheList}"  class="btn btn-primary btn-lg text-center" th:href="@{'/transaction/buy/packet/' + ${packet.id}}"> Blij Paketen</a></div>
+                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:unless="${isUserOnTheList}"  class="btn btn-primary btn-lg text-center" th:href="@{'/transaction/place/order/' + ${packet.id}}"> Prenoto Paketen</a></div>
 
                             </div>
 

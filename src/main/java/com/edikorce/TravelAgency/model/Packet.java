@@ -39,6 +39,7 @@ public class Packet implements Serializable {
 
     private Boolean isValid;
 
+
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "packetList", fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<User> userList = new ArrayList<>();
